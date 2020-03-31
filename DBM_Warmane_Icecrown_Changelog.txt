@@ -187,21 +187,3 @@ Raids
     In order for DBM to pick up the AURA_APPLIED combatlog message, the aura has to be applied after the boss spawns
     Quite often the boss spawns with the aura already applied so there's nothing for DBM to pick up in the combatlog
 
-
-_REMOVED_
-
-- Integrated the backport of Lombra's DBM-Profiles done by freix1
-  https://github.com/freix1/DBM-Profiles_WotLK
-  Thank you DeadlyImpact @ Warmane - Icecrown for pointing me towards this.
-  This addon implements AceDB profiles for Deadly Boss Mods, allowing you to share settings among characters.
-  Dual spec profiling is supported.
-  To manage profiles, open the Deadly Boss Mods configuration window using '/dbm', and select the Profiles category in the Options tab.
-  - Updating from version 4.58 or lower will reset your DBM settings!
-   !- When you first log in to the game after updating from 4.58 or lower, go to the new DBM Profiles page in the options tab
-      Select your current characters name and than adjust settings.
-      Log over to your next char, select either the profile from your previous char or select your currently logged char and than use the "copy from" option.
-      For some reason it's NOT able to store data in the "Default" profile.
-  The Default profile not working properly kinda defeated the point of having this
-  It also bugged out some of the options like the color of the DBM Warmings and Special Warnings
-  Profiles folder is still included in the zip file with a dummy file for easier installation of this DBM edited
-  !- It may be required to delete your DBM SavedVariables if you had version 4.60 with profiles included before updating to anything newer
