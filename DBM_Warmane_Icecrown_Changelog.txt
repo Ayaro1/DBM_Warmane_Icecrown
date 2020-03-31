@@ -165,7 +165,7 @@ Raids
 - Icecrown Citadel
 
  - Festergut
-  - Malleable Goo timer
+  - Fix Malleable Goo timers
 
  - Blood Prince Council
   - Add timer for role play on the first pull
