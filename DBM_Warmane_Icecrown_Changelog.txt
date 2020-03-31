@@ -41,8 +41,8 @@ Raids
   - Adjusted the first dominate mind timer to be more accurate
     Ability is being used anywhere between 40 and 48 seconds so use it as a cooldown reset timer
   - Added the option to enable automatic removal of Mark/Gift of the Wild after 24 seconds of combat
-    The 24 second delay is so that the buff is still active during first trinket uptime
-    This option is enabled by default for dps and healers
+    The 24 second delay is so that the buff is still active during first trinket uptime and first wave of adds
+    This option is enabled by default for dps and healers, but disabled for tanks
 
  - Gunship Battle Heroic
   - Fixed combat start timer
