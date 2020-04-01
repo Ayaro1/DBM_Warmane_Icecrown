@@ -7,7 +7,7 @@ Added Features
   
 General Modifications
 
-- Changed update download link to https://wow.ayaro.eu/addons/wotlk/
+- Changed update download link to https://github.com/Ayaro1/DBM_Warmane_Icecrown
 - Added the "/dbm rel" command to broadcast version check results to raid chat instead of self
   This function requires you to be promoted in raid to avoid spam
   This does not (yet) work for party chat
