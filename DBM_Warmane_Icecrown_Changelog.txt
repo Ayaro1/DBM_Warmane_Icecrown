@@ -90,7 +90,9 @@ Raids
   - Fixed the first phase 2 Soul Reaper timer - Thanks to Arrj @ Warmane - Icecrown
   - Fixed Harvest Souls timers for Heroic mode
     Timer for this can finish 1-3 seconds before the abilty is used cause Warmane
-  - Fixed the first phase 3 Defile timer for normal mode
+  
+ - The Lich King Normal
+  - Fixed the first phase 3 Defile timer
 
 
 - Ruby Sanctum
