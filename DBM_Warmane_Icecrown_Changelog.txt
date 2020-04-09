@@ -84,6 +84,7 @@ Raids
      This still causes "a little" chat spam depending on what stage of the fight you're in and what tactic you use
   - Added a raidchat notification "Instability_Reset" when casters/healers drop their stacks of Instability (Unchained Magic)
    - As of version 4.71 this notification now happens on say chat
+    - Reverting this change with 4.72
 
  - The Lich King Heroic
   - Fixed combat start timer
