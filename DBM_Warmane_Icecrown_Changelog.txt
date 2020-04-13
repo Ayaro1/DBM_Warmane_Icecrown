@@ -45,7 +45,8 @@ Raids
     This option is enabled by default for dps and healers, but disabled for tanks
 
  - Gunship Battle Heroic
-  - Fixed combat start timer
+  - Fixed combat start timer for Alliance side
+   - Alliance and Horde side use the same timer, yet Horde side starts combat 2 seconds earlier
   - Fixed the Battle Mage timer on Alliance side
     Alliance and Horde have seperate code
     I don't play Horde side so that's not getting fixed anytime soon unless someone is willing to provide data
@@ -166,6 +167,9 @@ General
 Raids
 
 - Icecrown Citadel
+
+ - Ladey Deathwhisper
+  - Add timer for P2 Ghosts
 
  - Festergut
   - Fix Malleable Goo timers
