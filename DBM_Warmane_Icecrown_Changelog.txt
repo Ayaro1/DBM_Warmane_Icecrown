@@ -17,7 +17,8 @@ General Modifications
 - Added the ElvUI main texture to DBM and set it to default
   If you have ElvUI installed, you might see this texture twice in the dropdown list when choosing another texture
 - Set the default size of the small bars to 207
-- Removed some code that was edited out to reduce file size
+- Removed some code that was edited out to reduce file size and RAM load
+- Added a LFG cooldown timer after successfully entering LFG - Made by Underlord from Sunwell
 
 
 Bosstimer Fixes

@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 4575 $"):sub(12, -3),
-	Version = "4.71",
-	DisplayVersion = "4.71 Warmane edit by Sariyo", -- the string that is shown as version
-	ReleaseRevision = 4575 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 4590 $"):sub(12, -3),
+	Version = "4.73",
+	DisplayVersion = "4.73 Warmane edit by Sariyo", -- the string that is shown as version
+	ReleaseRevision = 4590 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -1330,6 +1330,7 @@ do
 				"PLAYER_ENTERING_WORLD",
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
+				"LFG_PROPOSAL_SUCCEEDED",
 				"LFG_UPDATE"
 			)
 			self:ZONE_CHANGED_NEW_AREA()
@@ -1344,6 +1345,10 @@ end
 
 function DBM:LFG_PROPOSAL_SHOW()
 	DBM.Bars:CreateBar(40, DBM_LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+end
+
+function DBM:LFG_PROPOSAL_SUCCEEDED()
+	DBM.Bars:CreateBar(900, DBM_LFG_CD, "Interface\\Icons\\Spell_Holy_SurgeOfLight")
 end
 
 function DBM:LFG_PROPOSAL_FAILED()
@@ -2517,7 +2522,7 @@ function bossModPrototype:IsMelee()
 			or select(2, UnitClass("player")) == "WARRIOR"
 			or select(2, UnitClass("player")) == "DEATHKNIGHT"
 			or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
-     		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 51)
+     		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
 			or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
 end
 
@@ -2570,6 +2575,13 @@ function bossModPrototype:IsHealer()
 			or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
+function bossModPrototype:IsWeaponDependent(uId)
+	return select(2, UnitClass(uId)) == "ROGUE"
+		or (select(2, UnitClass(uId)) == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
+		or select(2, UnitClass(uId)) == "DEATHKNIGHT"
+		or (select(2, UnitClass(uId)) == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
+     	or (select(2, UnitClass(uId)) == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
+end
 
 -------------------------
 --  Boss Health Frame  --
