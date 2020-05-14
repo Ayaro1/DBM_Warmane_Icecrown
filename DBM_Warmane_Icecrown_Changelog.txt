@@ -92,6 +92,7 @@ Raids
   - Fixed combat start timer
   - Fixed the first phase 2 Soul Reaper timer - Thanks to Arrj @ Warmane - Icecrown
   - Fixed Harvest Souls timers for Heroic mode
+  - Added timer and warning for Phase 3 Defiles that happen after Harvest Souls
   
  - The Lich King Normal
   - Fixed the first phase 3 Defile timer

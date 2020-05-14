@@ -1330,7 +1330,7 @@ do
 				"PLAYER_ENTERING_WORLD",
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
-				"LFG_PROPOSAL_SUCCEEDED",
+				-- "LFG_PROPOSAL_SUCCEEDED",
 				"LFG_UPDATE"
 			)
 			self:ZONE_CHANGED_NEW_AREA()
@@ -1347,9 +1347,11 @@ function DBM:LFG_PROPOSAL_SHOW()
 	DBM.Bars:CreateBar(40, DBM_LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 end
 
+--[[
 function DBM:LFG_PROPOSAL_SUCCEEDED()
 	DBM.Bars:CreateBar(900, DBM_LFG_CD, "Interface\\Icons\\Spell_Holy_SurgeOfLight")
 end
+]]--
 
 function DBM:LFG_PROPOSAL_FAILED()
 	DBM.Bars:CancelBar(DBM_LFG_INVITE)
