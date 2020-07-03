@@ -141,7 +141,7 @@ do
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(67051, 67050, 67049, 66237) then			-- Incinerate Flesh
+	if args:IsSpellID(67051, 67050, 67049, 66237) then	-- Incinerate Flesh
 		warnFlesh:Show(args.destName)
 		timerFlesh:Start(args.destName)
 		timerFleshCD:Start()
@@ -160,7 +160,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnNetherPower:Show()
 		warnNetherPower:Show()
 
-	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
+	elseif args:IsSpellID(66197, 68123, 68124, 68125) then	-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		local targetname = args.destName
 		timerFlame:Start(args.destName)
 		timerFlameCD:Start()		
@@ -179,14 +179,14 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(66334, 67905, 67906, 67907) and args:IsPlayer() then
 		specWarnKiss:Show()
 
-	elseif args:IsSpellID(66532, 66963, 66964, 66965) then		-- Fel Fireball (announce if tank gets debuff for dispel)
+	elseif args:IsSpellID(66532, 66963, 66964, 66965) then	-- Fel Fireball (announce if tank gets debuff for dispel)
 		warnFelFireball:Show()
 		SpecWarnFelFireballDispel:Show(args.destName)
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(67051, 67050, 67049, 66237) then			-- Incinerate Flesh
+	if args:IsSpellID(67051, 67050, 67049, 66237) then	-- Incinerate Flesh
 		timerFlesh:Stop()
 		clearIncinerateTarget(self, args.destName)
 	end
