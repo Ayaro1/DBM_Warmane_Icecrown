@@ -7,6 +7,7 @@ Added Features
   
 General Modifications
 
+- Details! backport support made possible by Ajseward.
 - Changed update download link to https://github.com/Ayaro1/DBM_Warmane_Icecrown
 - Added the "/dbm rel" command to broadcast version check results to raid chat instead of self
   This function requires you to be promoted in raid to avoid spam
@@ -34,6 +35,7 @@ Raids
   - Fixed Bone Storm cooldown timer
   - Added "Spikes up in..." timer for when Bone Spikes is being cast
     This acts as a secondary timer next to the cooldown timer
+  - Added vocal anouncement when Bone Spikes are being cast
   - Added "Whirlwind starts in..." timer for when Bone Storm is being cast
     This acts as a secondary timer next to the cooldown timer
 
@@ -45,6 +47,7 @@ Raids
   - Added the option to enable automatic removal of Mark/Gift of the Wild after 24 seconds of combat
     The 24 second delay is so that the buff is still active during first trinket uptime and first wave of adds
     This option is enabled by default for dps and healers, but disabled for tanks
+  - Added vocal anouncement when boss casts Vengefull Shades
 
  - Gunship Battle Heroic
   - Fixed combat start timer for Alliance side
@@ -69,8 +72,13 @@ Raids
   - Fixed Range Check to auto show
   - Adjusted the Range Check from 8 to 10 to better reflect the aoe range of Vile Gas on Warmane
 
+ - Professor Putricide
+  - Added vocal anouncement when boss casts Malleable Goo
+  - Added vocal anouncement when boss casts Gas Bomb
+
  - Blood-Queen Lana'thel Heroic
   - Adjusted the enrage timer to be more accurate
+  - Added vocal anouncement when player is affected by Pact of the Darkfallen
   
  - Valithria Dreamwalker Heroic
   - Fixed the starting trigger for the bossmod, portal timers are showing again
@@ -96,6 +104,9 @@ Raids
   - Added timer and warning for Phase 3 Defiles that happen after Harvest Souls
   
  - The Lich King Normal
+  - Added vocal anouncement when boss casts Infest
+  - Added vocal anouncement when boss casts Soul Reaper
+  - Added vocal anouncement when you are affected by Necrotic Plague
   - Fixed the first phase 3 Defile timer
 
 
