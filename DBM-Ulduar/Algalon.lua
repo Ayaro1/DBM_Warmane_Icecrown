@@ -46,27 +46,29 @@ local timerNextCollapsingStar	= mod:NewTimer(15, "NextCollapsingStar")
 local timerCDCosmicSmash		= mod:NewTimer(25, "PossibleNextCosmicSmash")
 local timerCastCosmicSmash		= mod:NewCastTimer(4.5, 62311)
 local timerPhasePunch			= mod:NewBuffActiveTimer(45, 64412)
-local timerNextPhasePunch		= mod:NewNextTimer(16, 64412)
+local timerNextPhasePunch		= mod:NewNextTimer(15.5, 64412)
 
 local warned_preP2 = false
 local warned_star = false
+local phase2Warning = 105
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	warned_preP2 = false
 	warned_star = false
-	local text = select(3, GetWorldStateUIInfo(1)) 
+	local text = select(3, GetWorldStateUIInfo(1))
 	local _, _, time = string.find(text, L.PullCheck)
-	if not time then 
-        	time = 60 
+	if not time then
+        	time = 60
     	end
 	time = tonumber(time)
 	if time == 60 then
 		timerCombatStart:Start(26.5-delay)
 		self:ScheduleMethod(26.5-delay, "startTimers")	-- 26 seconds roleplaying
-	else 
+	else
 		timerCombatStart:Start(-delay)
 		self:ScheduleMethod(8-delay, "startTimers")	-- 8 seconds roleplaying
-	end 
+	end
 end
 
 function mod:startTimers()
@@ -83,7 +85,6 @@ function mod:SPELL_CAST_START(args)
 		timerNextBigBang:Start()
 		announceBigBang:Show()
 		announcePreBigBang:Schedule(80)
-		specWarnBigBang:Show()
 	end
 end
 
@@ -123,6 +124,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		timerNextCollapsingStar:Cancel()
 		warnPhase2:Show()
+		self.vb.phase = 2
 	end
 end
 

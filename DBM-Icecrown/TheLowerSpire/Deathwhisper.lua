@@ -57,6 +57,7 @@ mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
+mod:AddBoolOption("SoundWarnCountingMC", true)
 mod:RemoveOption("HealthFrame")
 
 
@@ -67,6 +68,7 @@ local deformedFanatic
 local empoweredAdherent
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	if self.Options.ShieldHealthFrame then
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
@@ -78,6 +80,13 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(7, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		if self.Options.SoundWarnCountingMC then
+			self:ScheduleMethod(25, "ToMC5")
+			self:ScheduleMethod(26, "ToMC4")
+			self:ScheduleMethod(27, "ToMC3")
+			self:ScheduleMethod(28, "ToMC2")
+			self:ScheduleMethod(29, "ToMC1")
+		end
 	end
 	timerDominateMindCD:Start(-13-delay)  -- Custom adjustment to Heroic25
 	if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
@@ -144,6 +153,26 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	end
 end
 
+function mod:ToMC5()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+end
+
+function mod:ToMC4()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+end
+
+function mod:ToMC3()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+end
+
+function mod:ToMC2()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+end
+
+function mod:ToMC1()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+end
+
 function mod:TrySetTarget()
 	if DBM:GetRaidRank() >= 1 then
 		for i = 1, GetNumRaidMembers() do
@@ -168,6 +197,13 @@ do
 		timerDominateMindCD:Start()
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
+		if mod.Options.SoundWarnCountingMC then
+			mod:ScheduleMethod(35, "ToMC5")
+			mod:ScheduleMethod(36, "ToMC4")
+			mod:ScheduleMethod(37, "ToMC3")
+			mod:ScheduleMethod(38, "ToMC2")
+			mod:ScheduleMethod(39, "ToMC1")
+		end
 	end
 	
 	function mod:SPELL_AURA_APPLIED(args)
@@ -210,6 +246,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(70842) then
+		self.vb.phase = 2
 		warnPhase2:Show()
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 			timerAdds:Cancel()
@@ -253,6 +290,7 @@ function mod:SPELL_SUMMON(args)
 		if time() - lastSpirit > 5 then
 			warnSummonSpirit:Show()
 			timerSummonSpiritCD:Start()
+			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\spirits.mp3")
 			lastSpirit = time()
 		end
 	end

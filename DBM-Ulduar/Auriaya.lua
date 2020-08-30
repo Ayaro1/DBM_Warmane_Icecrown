@@ -34,11 +34,11 @@ local specWarnBlast		= mod:NewSpecialWarning("SpecWarnBlast", canInterrupt)
 local specWarnVoid 		= mod:NewSpecialWarningMove(64675)
 
 local enrageTimer		= mod:NewBerserkTimer(600)
-local timerDefender 	= mod:NewTimer(35, "timerDefender")
+local timerDefender 	= mod:NewTimer(30, "timerDefender")
 local timerFear			= mod:NewCastTimer(64386)
-local timerNextFear 	= mod:NewNextTimer(35.5, 64386)
+local timerNextFear 	= mod:NewCDTimer(30, 64386)
 local timerNextSwarm 	= mod:NewNextTimer(36, 64396)
-local timerNextSonic 	= mod:NewNextTimer(27, 64688)
+local timerNextSonic 	= mod:NewCDTimer(25, 64688)
 local timerSonic		= mod:NewCastTimer(64688)
 
 mod:AddBoolOption("HealthFrame", true)
@@ -76,13 +76,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(64455) then -- Feral Essence
 		DBM.BossHealth:AddBoss(34035, L.Defender:format(9))
 	elseif args:IsSpellID(64386) and args:IsPlayer() then
-		isFeared = true		
+		isFeared = true
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(64386) and args:IsPlayer() then
-		isFeared = false	
+		isFeared = false
 	end
 end
 

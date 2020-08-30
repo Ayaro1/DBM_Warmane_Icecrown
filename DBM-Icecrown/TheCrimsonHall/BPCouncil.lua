@@ -20,7 +20,7 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_TARGET",
-	-- "CHAT_MSG_MONSTER_YELL",
+	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
@@ -49,7 +49,7 @@ local timerShockVortex			= mod:NewCDTimer(16.5, 72037)			-- Seen a range from 16
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())				-- Might need tweaking
 local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)		-- Hard mode debuff
 
--- local timerCombatStart			= mod:NewTimer(29, "Combat starts in...", 2457) -- Roleplay for first pull
+local timerCombatStart			= mod:NewTimer(29, "Combat starts in...", 2457) -- Roleplay for first pull
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
@@ -264,10 +264,8 @@ function mod:OnSync(msg, target)
 	end
 end
 
---[[
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.FirstPull or msg:find(L.FirstPull) then
 		timerCombatStart:Start()
 	end
 end
-]]--

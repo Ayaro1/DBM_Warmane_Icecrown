@@ -62,12 +62,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerInjection:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnInjection:Show()
+			SendChatMessage("Mutating Injection on me!", "SAY")
 		end
 		if self.Options.SetIconOnInjectionTarget then
 			table.insert(mutateIcons, args.destName)
 			addIcon()
 		end
-	end	
+	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
@@ -83,5 +84,5 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(28240) then
 		warnCloud:Show()
 		timerCloud:Start()
-	end	
+	end
 end

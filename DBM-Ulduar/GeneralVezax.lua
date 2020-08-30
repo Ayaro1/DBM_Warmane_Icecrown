@@ -30,6 +30,7 @@ local timerSearingFlamesCast	= mod:NewCastTimer(2, 62661)
 local timerSurgeofDarkness		= mod:NewBuffActiveTimer(10, 62662)
 local timerNextSurgeofDarkness	= mod:NewBuffActiveTimer(62, 62662)
 local timerSaroniteVapors		= mod:NewNextTimer(30, 63322)
+local timerNextMarkOfTheFaceless = mod:NewNextTimer(40, 63276)
 local timerLifeLeech			= mod:NewTargetTimer(10, 63276)
 local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn")
 
@@ -45,12 +46,13 @@ function mod:OnCombatStart(delay)
 	timerEnrage:Start(-delay)
 	timerHardmode:Start(-delay)
 	timerNextSurgeofDarkness:Start(-delay)
+	timerNextMarkOfTheFaceless:Start(20)
 end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62661) then	-- Searing Flames
 		timerSearingFlamesCast:Start()
-	elseif args:IsSpellID(62662) then 
+	elseif args:IsSpellID(62662) then
 		specWarnSurgeDarkness:Show()
 		timerNextSurgeofDarkness:Start()
 	end
@@ -69,7 +71,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(62662) then	
+	if args:IsSpellID(62662) then
 		timerSurgeofDarkness:Stop()
 	end
 end
@@ -126,6 +128,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			self:SetIcon(args.destName, 7, 10)
 		end
 		warnLeechLife:Show(args.destName)
+		timerNextMarkOfTheFaceless:Start()
 		timerLifeLeech:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnLifeLeechYou:Show()

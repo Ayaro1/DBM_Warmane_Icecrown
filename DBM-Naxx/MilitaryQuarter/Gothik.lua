@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gothik", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 2248 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 4907 $"):sub(12, -3))
 mod:SetCreatureID(16060)
 
 mod:RegisterCombat("combat")
@@ -16,8 +16,9 @@ local warnRiderDown		= mod:NewAnnounce("WarningRiderDown", 4)
 local warnKnightDown	= mod:NewAnnounce("WarningKnightDown", 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2, 4)
 
-local timerPhase2		= mod:NewTimer(270, "TimerPhase2", 27082) 
+local timerPhase2		= mod:NewTimer(275, "TimerPhase2", 27082)
 local timerWave			= mod:NewTimer(20, "TimerWave", 27082)
+local timerGate     = mod:NewTimer(155, "Gate Opens", 9484)
 
 local wavesNormal = {
 	{2, L.Trainee, next = 20},
@@ -84,11 +85,18 @@ function mod:OnCombatStart(delay)
 		waves = wavesNormal
 	end
 	wave = 0
+	timerGate:Start()
 	timerPhase2:Start()
+	self:ScheduleMethod(274, "StartPhase2")
 	warnPhase2:Schedule(270)
 	timerWave:Start(25, wave + 1)
 	warnWaveSoon:Schedule(22, wave + 1, getWaveString(wave + 1))
 	self:ScheduleMethod(25, "NextWave")
+	self.vb.phase = 1
+end
+
+function mod:StartPhase2() 
+	self.vb.phase = 2
 end
 
 function mod:NextWave()
@@ -112,4 +120,3 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
-

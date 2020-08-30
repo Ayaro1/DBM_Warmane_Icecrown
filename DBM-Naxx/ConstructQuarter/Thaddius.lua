@@ -47,12 +47,14 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(20.6 - delay, "TankThrow")
 	timerThrow:Start(-delay)
 	warnThrowSoon:Schedule(17.6 - delay)
+	self.vb.phase = 1
 end
 
 local lastShift = 0
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(28089) then
 		phase2 = true
+		self.vb.phase = 2
 		timerNextShift:Start()
 		timerShiftCast:Start()
 		warnShiftCasting:Show()

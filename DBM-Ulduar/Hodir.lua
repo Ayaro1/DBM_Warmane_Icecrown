@@ -27,7 +27,7 @@ mod:AddBoolOption("YellOnStormCloud", true, "announce")
 local enrageTimer			= mod:NewBerserkTimer(475)
 local timerFlashFreeze		= mod:NewCastTimer(9, 61968)
 local timerFrozenBlows		= mod:NewBuffActiveTimer(20, 63512)
-local timerFlashFrCD		= mod:NewCDTimer(50, 61968)
+local timerFlashFrCD		= mod:NewCDTimer(60, 61968)
 local timerAchieve			= mod:NewAchievementTimer(179, 3182, "TimerSpeedKill")
 
 mod:AddBoolOption("SetIconOnStormCloud")
@@ -57,13 +57,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.YellOnStormCloud and args:IsPlayer() then
 			SendChatMessage(L.YellCloud, "SAY")
 		end
-		if self.Options.SetIconOnStormCloud then 
+		if self.Options.SetIconOnStormCloud then
 			self:SetIcon(args.destName, 8, 6)
 		end
 	end
 end
 
-do 
+do
 	local lastbitingcold = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsSpellID(62038, 62188) and args:IsPlayer() and time() - lastbitingcold > 4 then		-- Biting Cold

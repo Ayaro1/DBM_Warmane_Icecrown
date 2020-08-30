@@ -28,12 +28,15 @@ local warnCrunchArmor			= mod:NewTargetAnnounce(64002, 2)
 
 local specWarnCrunchArmor2		= mod:NewSpecialWarningStack(64002, false, 2)
 local specWarnEyebeam			= mod:NewSpecialWarningYou(63346)
+local specWarnEyebeamNear		= mod:NewSpecialWarningClose(63346, nil, nil, nil, 1, 2)
 
 local timerCrunch10             = mod:NewTargetTimer(6, 63355)
 local timerNextShockwave		= mod:NewCDTimer(18, 63982)
-local timerRespawnLeftArm		= mod:NewTimer(48, "timerLeftArm")
-local timerRespawnRightArm		= mod:NewTimer(48, "timerRightArm")
+local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm")
+local timerRespawnRightArm		= mod:NewTimer(30, "timerRightArm")
 local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
+
+local enrageTimer				= mod:NewBerserkTimer(600)
 
 -- 5/23 00:33:48.648  SPELL_AURA_APPLIED,0x0000000000000000,nil,0x80000000,0x0480000001860FAC,"Hâzzad",0x4000512,63355,"Crunch Armor",0x1,DEBUFF
 -- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48 
@@ -43,6 +46,10 @@ mod:AddBoolOption("SetIconOnGripTarget", true)
 mod:AddBoolOption("PlaySoundOnEyebeam", true)
 mod:AddBoolOption("SetIconOnEyebeamTarget", true)
 mod:AddBoolOption("YellOnBeam", true, "announce")
+
+function mod:OnCombatStart(delay)
+	enrageTimer:Start(600-delay)
+end
 
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 32934 then 		-- right arm
@@ -66,7 +73,7 @@ function mod:SPELL_DAMAGE(args)
 	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
 		timerNextShockwave:Start()
 	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
-		specWarnEyebeam:Show()
+		specWarnEyebeamNear:Show()
 	end
 end
 

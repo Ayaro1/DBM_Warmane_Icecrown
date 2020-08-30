@@ -8,7 +8,8 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED"
+	"SPELL_AURA_APPLIED",
+	"SPELL_DAMAGE"
 )
 
 local warnEmbraceActive		= mod:NewSpellAnnounce(28732, 1)
@@ -55,4 +56,3 @@ function mod:SPELL_AURA_APPLIED(args)
 		enraged = GetTime()
 	end
 end
-

@@ -110,6 +110,7 @@ function mod:OnCombatStart(delay)
 	timerRisingAnger:Start(48-delay)
 	timerCombatStart:Start(-delay)
 	updateHealthFrame(1)
+	self.vb.phase = 1
 end
 
 function mod:OnCombatEnd()
@@ -308,11 +309,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:ScheduleMethod(17, "WormsEmerge")
 		timerCombatStart:Show(11)
 		updateHealthFrame(2)
+		self.vb.phase = 2
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(10)
 		end
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		updateHealthFrame(3)
+		self.vb.phase = 3
 		if self:IsDifficulty("heroic10", "heroic25") then
 			enrageTimer:Start()
 		end

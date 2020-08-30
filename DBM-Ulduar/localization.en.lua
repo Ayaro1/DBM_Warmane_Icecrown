@@ -11,7 +11,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-	
+
 L:SetMiscLocalization{
 	YellPull	= "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
 	Emote		= "%%s pursues (%S+)%."
@@ -59,11 +59,11 @@ L:SetGeneralLocalization{
 	name = "Razorscale"
 }
 
-L:SetWarningLocalization{	
+L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Last turret ready in 20 seconds",
 	warnTurretsReady			= "Last turret ready",
 	SpecWarnDevouringFlameCast	= "Devouring Flame on you",
-	WarnDevouringFlameCast		= "Devouring Flame on >%s<" 
+	WarnDevouringFlameCast		= "Devouring Flame on >%s<"
 }
 
 L:SetTimerLocalization{
@@ -108,11 +108,13 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
+	WarningTTIn10Sec			= "Tympanic Tantrum in 10 sec."
 }
 
 L:SetOptionLocalization{
 	SetIconOnLightBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65121),
-	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234)
+	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234),
+	WarningTympanicTantrumIn10Sec = "Show special pre-warning (10 sec.) for $spell:62776 "
 }
 
 --------------------
@@ -125,6 +127,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	WarningRuneofDeathIn10Sec = "RoD in ~10 sec."
 }
 
 L:SetTimerLocalization{
@@ -142,7 +145,17 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Steelbreaker		= "Steelbreaker",
 	RunemasterMolgeim	= "Runemaster Molgeim",
-	StormcallerBrundir 	= "Stormcaller Brundir"
+	StormcallerBrundir 	= "Stormcaller Brundir",
+	YellPull1			= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!",
+	YellPull2			= "Nothing short of total decimation will suffice.",
+	YellPull3			= "You will not defeat the Assembly of Iron so easily, invaders!",
+	YellRuneOfDeath		= "Decipher this!",
+	YellRunemasterMolgeimDied = "What have you gained from my defeat? You are no less doomed, mortals!",
+	YellRunemasterMolgeimDied2 = "The legacy of storms shall not be undone.",
+	YellStormcallerBrundirDied = "The power of the storm lives on...",
+	YellStormcallerBrundirDied2 = "You rush headlong into the maw of madness!",
+	YellSteelbreakerDied = "My death only serves to hasten your demise.",
+	YellSteelbreakerDied2 = "Impossible!"
 }
 
 ----------------------------
@@ -156,7 +169,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	NextCollapsingStar		= "Next Collapsing Star",
-	PossibleNextCosmicSmash	= "Next possible Cosmic Smash",
+	NextCosmicSmash			= "Next Cosmic Smash",
 	TimerCombatStart		= "Combat starts"
 }
 
@@ -171,14 +184,14 @@ L:SetOptionLocalization{
 	WarningPhasePunch		= "Announce Phase Punch targets",
 	NextCollapsingStar		= "Show timer for next Collapsing Star",
 	WarningCosmicSmash 		= "Show warning for Cosmic Smash",
-	PossibleNextCosmicSmash	= "Show timer for next possible Cosmic Smash",
+	NextCosmicSmash			= "Show timer for next Cosmic Smash",
 	TimerCombatStart		= "Show timer for start of combat",
 	WarnPhase2Soon			= "Show pre-warning for Phase 2 (at ~23%)",
 	warnStarLow				= "Show special warning when Collapsing Star is low (at ~25%)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.",
+	YellPull 				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
 	YellKill				= "I have seen worlds bathed in the Makers' flames, their denizens fading without as much as a whimper. Entire planetary systems born and razed in the time that it takes your mortal hearts to beat once. Yet all throughout, my own heart devoid of emotion... of empathy. I. Have. Felt. Nothing. A million-million lives wasted. Had they all held within them your tenacity? Had they all loved life as you do?",
 	Emote_CollapsingStar	= "%s begins to Summon Collapsing Stars!",
 	Phase2					= "Behold the tools of creation",
@@ -216,6 +229,9 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Yell_Trigger_arm_left	= "Just a scratch!",
 	Yell_Trigger_arm_right	= "Only a flesh wound!",
+	YellEncounterStart		= "None shall pass!",
+	YellLeftArmDies			= "Just a scratch!",
+	YellRightArmDies		= "Only a flesh wound!",
 	Health_Body				= "Kologarn Body",
 	Health_Right_Arm		= "Right Arm",
 	Health_Left_Arm			= "Left Arm",
@@ -293,7 +309,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Hard mode"
+	TimerHardmodeThorim	= "Sif's Presence",
 }
 
 L:SetOptionLocalization{
@@ -304,10 +320,10 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	YellPhase1	= "Interlopers! You mortals who dare to interfere with my sport will pay.... Wait--you...",
-	YellPhase2	= "Impertinent whelps, you dare challenge me atop my pedestal? I will crush you myself!",
+	YellPhase2	= "Impertinent whelps! You dare challenge me atop my pedestal! I will crush you myself!",
 	YellKill	= "Stay your arms! I yield!",
 	ChargeOn	= "Lightning Charge: %s",
-	Charge		= "Lightning Charge fails (this try): %s" 
+	Charge		= "Lightning Charge fails (this try): %s"
 }
 
 -------------
@@ -325,11 +341,15 @@ L:SetMiscLocalization{
 	Snaplasher         = "Snaplasher",
 	StormLasher        = "Storm Lasher",
 	YellKill           = "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
+	YellAdds1          = "Eonar, your servant requires aid!",
+	YellAdds2          = "The swarm of the elements shall overtake you!",
+	EmoteLGift         = "begins to grow!",
 	TrashRespawnTimer  = "Freya trash respawn"
 }
 
 L:SetWarningLocalization{
-	WarnSimulKill	= "First add down - Resurrection in ~12 seconds"
+	WarnSimulKill	= "First add down - Resurrection in ~12 seconds",
+	WarningBeamsSoon = "Beams soon"
 }
 
 L:SetTimerLocalization{
@@ -339,6 +359,7 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	WarnSimulKill	= "Announce first mob down",
 	PlaySoundOnFury = "Play sound when you are affected by $spell:63571",
+	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon",
 	TimerSimulKill	= "Show timer for mob resurrection"
 }
 
@@ -375,11 +396,12 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	MagneticCore		= ">%s< has Magnetic Core",
 	WarningShockBlast	= "Shock Blast - Run away",
-	WarnBombSpawn		= "Bomb Bot spawned"
+	WarnBombSpawn		= "Bomb Bot spawned",
+	WarningFlamesIn5Sec = "Flames in 5 sec.",
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Hard mode - Self-destruct",
+	TimerHardmode	= "Self-destruct",
 	TimeToPhase2	= "Phase 2",
 	TimeToPhase3	= "Phase 3",
 	TimeToPhase4	= "Phase 4"
@@ -400,18 +422,21 @@ L:SetOptionLocalization{
 	ShockBlastWarningInP4	= "Show special warning for $spell:63631 in Phase 4",
 	RangeFrame				= "Show range frame in Phase 1 (6 yards)",
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997)
+	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
+	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
+	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames"
 }
 
 L:SetMiscLocalization{
 	MobPhase1		= "Leviathan Mk II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Aerial Command Unit",
-	YellPull		= "We haven't much time, friends! You're going to help me test out my latest and greatest creation. Now, before you change your minds, remember that you kind of owe it to me after the mess you made with the XT-002.",	
-	YellHardPull	= "Self-destruct sequence initiated",
+	YellPull		= "We haven't much time, friends! You're going to help me test out my latest and greatest creation. Now, before you change your minds, remember, that you kind of owe it to me after the mess you made with the XT-002.",
+	YellHardPull	= "Self-destruct sequence initiated.",
 	YellPhase2		= "WONDERFUL! Positively marvelous results! Hull integrity at 98.9 percent! Barely a dent! Moving right along.",
-	YellPhase3		= "Thank you, friends! Your efforts have yielded some fantastic data! Now, where did I put-- oh, there it is.",
+	YellPhase3		= "Thank you, friends! Your efforts have yielded some fantastic data! Now, where did I put-- oh, there it is!", -- ! last
 	YellPhase4		= "Preliminary testing phase complete. Now comes the true test!",
+	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 
@@ -476,7 +501,7 @@ L:SetWarningLocalization{
 	SpecWarnSanity 					= "%d Sanity remaining",
 	SpecWarnGuardianLow				= "Stop attacking this Guardian",
 	SpecWarnMadnessOutNow			= "Induce Madness ending - Move out",
-	WarnBrainPortalSoon				= "Brain Portal in 3 seconds",	
+	WarnBrainPortalSoon				= "Brain Portal in 3 seconds",
 	SpecWarnFervor					= "Sara's Fervor on you",
 	SpecWarnFervorCast				= "Sara's Fervor is being cast on you",
 	SpecWarnMaladyNear				= "Malady of the Mind on %s near you",
@@ -506,4 +531,3 @@ L:SetOptionLocalization{
 	SetIconOnBrainLinkTarget		= "Set icons on $spell:63802 targets",
 	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you"
 }
-

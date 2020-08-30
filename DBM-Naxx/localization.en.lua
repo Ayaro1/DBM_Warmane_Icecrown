@@ -152,6 +152,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
+	RemoveHealthBuffsOnCombatStart	= "Remove HP buffs at start of the encounter",	
 	WarningHateful	= "Post Hateful Strike targets to raid chat\n(requires announce to be enabled and leader/promoted status)"
 })
 
@@ -358,7 +359,7 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerAir		= "Air phase",
 	TimerLanding	= "Landing",
-	TimerIceBlast	= "Frost Breath"	
+	TimerIceBlast	= "Frost Breath"
 })
 
 ------------------
@@ -391,4 +392,3 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerPhase2	= "Phase 2"
 })
-

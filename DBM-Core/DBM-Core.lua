@@ -42,7 +42,7 @@
 --  Combat log Fix  --
 ----------------------
 local tCLFix = 0
- 
+
 local function fCLFix(self,elapsed)
     tCLFix = tCLFix + elapsed
     if tCLFix >= 2 then --time (in seconds) it takes before it executes the command on line 6
@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 4590 $"):sub(12, -3),
-	Version = "4.73",
-	DisplayVersion = "4.73 Warmane edit by Sariyo", -- the string that is shown as version
-	ReleaseRevision = 4590 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5050 $"):sub(12, -3),
+	Version = "5.05",
+	DisplayVersion = "5.05 DBM-Icecrown edit by Sariyo.", -- the string that is shown as version
+	ReleaseRevision = 5050 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -92,13 +92,17 @@ DBM.DefaultOptions = {
 	SpamBlockBossWhispers = false,
 	ShowMinimapButton = true,
 	FixCLEUOnCombatStart = false,
-	BlockVersionUpdatePopup = false,
+	BlockVersionUpdatePopup = true,
 	ShowSpecialWarnings = true,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
 	RangeFramePoint = "CENTER",
 	RangeFrameX = 50,
 	RangeFrameY = -50,
+	RangeFrameRadarPoint = "CENTER",
+	RangeFrameRadarX = 100,
+	RangeFrameRadarY = -100,
+	RangeFrameFrames = "radar",
 	RangeFrameSound1 = "none",
 	RangeFrameSound2 = "none",
 	RangeFrameLocked = false,
@@ -116,8 +120,8 @@ DBM.DefaultOptions = {
 	HealthFrameLocked = false,
 	HealthFrameWidth = 200,
 	ArrowPosX = 0,
-	ArrowPosY = -150,
-	ArrowPoint = "TOP",
+	ArrowPosY = 0,
+	ArrowPoint = "CENTER",
 	-- global boss mod settings (overrides mod-specific settings for some options)
 	DontShowBossAnnounces = false,
 	DontSendBossAnnounces = false,
@@ -125,6 +129,7 @@ DBM.DefaultOptions = {
 	DontSetIcons = false,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
+	DisableCinematics = false,
 --	HelpMessageShown = false,
 }
 
@@ -498,7 +503,6 @@ do
 	end
 end
 
-
 --------------------------
 --  OnUpdate/Scheduler  --
 --------------------------
@@ -692,6 +696,7 @@ end
 --  Slash Commands  --
 ----------------------
 SLASH_DEADLYBOSSMODS1 = "/dbm"
+SLASH_PULL1 = "/pull"
 SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	local cmd = msg:lower()
 	if cmd == "ver" or cmd == "version" then
@@ -768,10 +773,6 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(1), channel) end
 		DBM:Schedule(timer, SendChatMessage, DBM_CORE_ANNOUNCE_PULL_NOW, channel)
 	elseif cmd:sub(1, 5) == "arrow" then
-		if not DBM:IsInRaid() then
-			DBM:AddMsg(DBM_ARROW_NO_RAIDGROUP)
-			return false
-		end
 		local x, y = string.split(" ", cmd:sub(6):trim())
 		xNum, yNum = tonumber(x or ""), tonumber(y or "")
 		local success
@@ -806,7 +807,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:LoadGUI()
 	end
 end
-
+SlashCmdList["PULL"] = function(msg) SlashCmdList["DEADLYBOSSMODS"]("pull "..msg) end
 SLASH_DBMRANGE1 = "/range"
 SLASH_DBMRANGE2 = "/distance"
 SlashCmdList["DBMRANGE"] = function(msg)
@@ -1074,30 +1075,34 @@ do
 	
 	function DBM:RAID_ROSTER_UPDATE()
 		if GetNumRaidMembers() >= 1 then
-			local playerWithHigherVersionPromoted = false
-			for i = 1, GetNumRaidMembers() do
-				local name, rank, subgroup, _, _, fileName = GetRaidRosterInfo(i)
-				if (not raid[name]) and inRaid then
-					fireEvent("raidJoin", name)
-				end
-				raid[name] = raid[name] or {}
-				raid[name].name = name
-				raid[name].rank = rank
-				raid[name].subgroup = subgroup
-				raid[name].class = fileName
-				raid[name].id = "raid"..i
-				raid[name].updated = true
-				if not playerWithHigherVersionPromoted and rank >= 1 and raid[name].version and raid[name].version > tonumber(DBM.Version) then
-					playerWithHigherVersionPromoted = true
-				end
-			end
-			enableIcons = not playerWithHigherVersionPromoted
 			if not inRaid then
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
 				self:Schedule(2, DBM.RequestTimers, DBM)
 				fireEvent("raidJoin", UnitName("player"))
 			end
+			local playerWithHigherVersionPromoted = false
+			for i = 1, GetNumRaidMembers() do
+				local name, rank, subgroup, _, _, fileName = GetRaidRosterInfo(i)
+				if name and inRaid then
+
+					if (not raid[name]) then
+						fireEvent("raidJoin", name)
+					end
+					
+					raid[name] = raid[name] or {}
+					raid[name].name = name
+					raid[name].rank = rank
+					raid[name].subgroup = subgroup
+					raid[name].class = fileName
+					raid[name].id = "raid"..i
+					raid[name].updated = true
+				end
+				if not playerWithHigherVersionPromoted and rank >= 1 and raid[name].version and raid[name].version > tonumber(DBM.Version) then
+					playerWithHigherVersionPromoted = true
+				end
+			end
+			enableIcons = not playerWithHigherVersionPromoted
 			for i, v in pairs(raid) do
 				if not v.updated then
 					raid[i] = nil
@@ -1228,13 +1233,15 @@ do
 					end
 				end
 				v.Options = savedOptions[v.id] or {}
-				savedStats[v.id] = savedStats[v.id] or {
-					kills = 0,
-					pulls = 0,
-					heroicKills = 0,
-					heroicPulls = 0,
-				}
+				savedStats[v.id] = savedStats[v.id] or {}
 				v.stats = savedStats[v.id]
+
+				-- for some reason some people have 0 kills as nil instead of 0.
+				v.stats.kills = v.stats.kills or 0
+				v.stats.pulls = v.stats.pulls or 0
+				v.stats.heroicKills = v.stats.heroicKills or 0
+				v.stats.heroicPulls = v.stats.heroicPulls or 0
+
 				if v.OnInitialize then v:OnInitialize() end
 				for i, cat in ipairs(v.categorySort) do -- temporary hack
 					if cat == "misc" then
@@ -1330,7 +1337,6 @@ do
 				"PLAYER_ENTERING_WORLD",
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
-				-- "LFG_PROPOSAL_SUCCEEDED",
 				"LFG_UPDATE"
 			)
 			self:ZONE_CHANGED_NEW_AREA()
@@ -1346,12 +1352,6 @@ end
 function DBM:LFG_PROPOSAL_SHOW()
 	DBM.Bars:CreateBar(40, DBM_LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 end
-
---[[
-function DBM:LFG_PROPOSAL_SUCCEEDED()
-	DBM.Bars:CreateBar(900, DBM_LFG_CD, "Interface\\Icons\\Spell_Holy_SurgeOfLight")
-end
-]]--
 
 function DBM:LFG_PROPOSAL_FAILED()
 	DBM.Bars:CancelBar(DBM_LFG_INVITE)
@@ -1507,7 +1507,7 @@ do
 							else 
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Ayaro1/DBM_Warmane_Icecrown]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ajseward/DBM-Frostmourne]"):format(displayVersion, revision))
 							end
 						end
 					end
@@ -1610,10 +1610,10 @@ function DBM:ShowUpdateReminder(newVersion, newRevision)
 	editBox:SetFontObject("GameFontHighlight")
 	editBox:SetTextInsets(0, 0, 0, 1)
 	editBox:SetFocus()
-	editBox:SetText("https://github.com/Ayaro1/DBM_Warmane_Icecrown")
+	editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
 	editBox:HighlightText()
 	editBox:SetScript("OnTextChanged", function(self)
-		editBox:SetText("https://github.com/Ayaro1/DBM_Warmane_Icecrown")
+		editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
 		editBox:HighlightText()
 	end)
 	local fontstring = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -1797,6 +1797,7 @@ function checkWipe(confirm)
 end
 
 function DBM:StartCombat(mod, delay, synced)
+	fireEvent("pull", mod, delay, synced)
 	if not checkEntry(inCombat, mod) then
 		if not mod.combatInfo then return end
 		if mod.combatInfo.noCombatInVehicle and UnitInVehicle("player") then -- HACK
@@ -1827,7 +1828,6 @@ function DBM:StartCombat(mod, delay, synced)
 		if not synced then
 			sendSync("DBMv4-Pull", (delay or 0).."\t"..mod.id.."\t"..(mod.revision or 0))
 		end
-		fireEvent("pull", mod, delay, synced)
 		-- http://www.deadlybossmods.com/forum/viewtopic.php?t=1464
 		if DBM.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 			if DBM.Options.BigBrotherAnnounceToRaid then
@@ -2060,6 +2060,9 @@ do
 		end
 		self:LFG_UPDATE()
 --		self:Schedule(10, function() if not DBM.Options.HelpMessageShown then DBM.Options.HelpMessageShown = true DBM:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
+		if DBM.Options.DisableCinematics then
+			MovieFrame:SetScript("OnEvent", function() GameMovieFinished() end)
+		end
 	end
 end
 
@@ -2324,6 +2327,7 @@ do
 				id = name,
 				announces = {},
 				specwarns = {},
+				vb = {}, -- variables table, used by details to check phase
 				timers = {},
 				modId = modId,
 				revision = 0,
@@ -2524,7 +2528,7 @@ function bossModPrototype:IsMelee()
 			or select(2, UnitClass("player")) == "WARRIOR"
 			or select(2, UnitClass("player")) == "DEATHKNIGHT"
 			or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
-     		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
+     		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 51)
 			or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
 end
 
@@ -2577,13 +2581,6 @@ function bossModPrototype:IsHealer()
 			or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
-function bossModPrototype:IsWeaponDependent(uId)
-	return select(2, UnitClass(uId)) == "ROGUE"
-		or (select(2, UnitClass(uId)) == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
-		or select(2, UnitClass(uId)) == "DEATHKNIGHT"
-		or (select(2, UnitClass(uId)) == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
-     	or (select(2, UnitClass(uId)) == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
-end
 
 -------------------------
 --  Boss Health Frame  --
@@ -2646,6 +2643,7 @@ do
 				end
 			end
 			PlaySoundFile(DBM.Options.RaidWarningSound)
+			fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		end
 	end
 
@@ -2838,6 +2836,7 @@ do
 			if self.sound then
 				PlaySoundFile(DBM.Options.SpecialWarningSound)
 			end
+			fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		end
 	end
 
@@ -3037,6 +3036,7 @@ do
 			table.insert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
+			self.mod:Schedule(timer, fireEvent, "DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 			return bar
 		else
 			return false, "disabled"
@@ -3053,6 +3053,7 @@ do
 	end
 
 	function timerPrototype:Stop(...)
+		fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		if select("#", ...) == 0 then
 			for i = #self.startedTimers, 1, -1 do
 				DBM.Bars:CancelBar(self.startedTimers[i])
@@ -3079,13 +3080,19 @@ do
 		local bar = DBM.Bars:GetBar(id)
 		return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0
 	end
-	
+
+	function timerPrototype:Time(...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local bar = DBM.Bars:GetBar(id)
+		return bar.totalTime or 0
+	end
+
 	function timerPrototype:IsStarted(...)
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBM.Bars:GetBar(id)
 		return bar and true
 	end
-	
+
 	function timerPrototype:SetTimer(timer)
 		self.timer = timer
 	end
@@ -3096,6 +3103,14 @@ do
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		return DBM.Bars:UpdateBar(id, elapsed, totalTime)
+	end
+
+	function timerPrototype:AddTime(time, ...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local timer = self:GetTime(...) - time -- GetTime() = elapsed time on timer
+		if timer then
+			return DBM.Bars:UpdateBar(id, timer)
+		end
 	end
 
 	function timerPrototype:UpdateIcon(icon, ...)
@@ -3742,3 +3757,4 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
+

@@ -33,13 +33,21 @@ local timerIceBlast		= mod:NewTimer(9.3, "TimerIceBlast", 15876)
 local noTargetTime = 0
 local isFlying = false
 
+mod:AddBoolOption("RangeFrame", true)
+
 function mod:OnCombatStart(delay)
 	noTargetTime = 0
 	isFlying = false
 	warnAirPhaseSoon:Schedule(38.5 - delay)
 	timerAirPhase:Start(48.5 - delay)
+	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(28522) and args:IsPlayer() and self.Options.WarningIceblock then
@@ -76,6 +84,10 @@ function mod:Landing()
 	warnAirPhaseSoon:Schedule(56)
 	warnLanded:Show()
 	timerAirPhase:Start()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
+	self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
 local function resetIsFlying()
