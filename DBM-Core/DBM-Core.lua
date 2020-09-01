@@ -1507,7 +1507,7 @@ do
 							else 
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ajseward/DBM-Frostmourne]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Ayaro1/DBM_Warmane_Icecrown]"):format(displayVersion, revision))
 							end
 						end
 					end
@@ -1610,10 +1610,10 @@ function DBM:ShowUpdateReminder(newVersion, newRevision)
 	editBox:SetFontObject("GameFontHighlight")
 	editBox:SetTextInsets(0, 0, 0, 1)
 	editBox:SetFocus()
-	editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
+	editBox:SetText("https://github.com/Ayaro1/DBM_Warmane_Icecrown")
 	editBox:HighlightText()
 	editBox:SetScript("OnTextChanged", function(self)
-		editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
+		editBox:SetText("https://github.com/Ayaro1/DBM_Warmane_Icecrown")
 		editBox:HighlightText()
 	end)
 	local fontstring = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
