@@ -60,7 +60,7 @@ f:SetScript("OnUpdate", fCLFix)
 DBM = {
 	Revision = ("$Revision: 5050 $"):sub(12, -3),
 	Version = "5.05",
-	DisplayVersion = "5.05 DBM-Icecrown edit by Sariyo.", -- the string that is shown as version
+	DisplayVersion = "5.05 DBM Warmane edit by Sariyo.", -- the string that is shown as version
 	ReleaseRevision = 5050 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
@@ -280,9 +280,9 @@ do
 	local argsMT = {__index = {}}
 	local args = setmetatable({}, argsMT)
 	
-	function argsMT.__index:IsSpellID(a1, a2, a3, a4)
+	function argsMT.__index:IsSpellID(a1, a2, a3, a4, a5, a6, a7, a8)
 		local v = self.spellId
-		return v == a1 or v == a2 or v == a3 or v == a4
+		return v == a1 or v == a2 or v == a3 or v == a4 or v == a5 or v == a6 or v == a7 or v == a8
 	end
 	
 	function argsMT.__index:IsPlayer()
@@ -3760,4 +3760,3 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
-
