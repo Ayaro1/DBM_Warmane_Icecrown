@@ -136,6 +136,7 @@ do
 	function mod:SPELL_SUMMON(args)
 		if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
 			if time() - lastBeast > 5 then
+				PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\beasts.mp3")
 				warnAdds:Show()
 				warnAddsSoon:Schedule(30)
 				timerCallBloodBeast:Start()
