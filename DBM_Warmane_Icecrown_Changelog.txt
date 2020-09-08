@@ -162,6 +162,11 @@ Raids
  - Freya
   - Added /say anouncement for people affected by Iron Roots saying "Rooted"
 
+ - Also incorporated all the changes made in Ajseward's Frostmourne DBM
+
+- Naxxramas
+ - Incorporated all the changes made in Ajseward's Frostmourne DBM
+
 
 Dungeons
 
