@@ -195,7 +195,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		timerNextSwarmingShadows:Start()
 		if target == UnitName("player") then
 			specWarnSwarmingShadows:Show()
-			soundSwarmingShadows:Play()
+			-- soundSwarmingShadows:Play() -- Original sound file config
+			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\runaway.mp3")
 		end
 		if self.Options.SwarmingShadowsIcon then
 			self:SetIcon(target, 8, 6)

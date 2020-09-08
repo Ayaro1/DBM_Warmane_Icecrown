@@ -61,6 +61,7 @@ Raids
     Alliance and Horde have seperate code
     I don't play Horde side so that's not getting fixed anytime soon unless someone is willing to provide data
   - Fixed the timer for the first set of Bloodbeasts
+  - Added vocal anouncement when boss summons Bloodbeasts
 
  - Rotface Heroic
   - Fixed Vile Gas timer
@@ -79,6 +80,7 @@ Raids
  - Blood-Queen Lana'thel Heroic
   - Adjusted the enrage timer to be more accurate
   - Added vocal anouncement when player is affected by Pact of the Darkfallen
+  - Added vocal anouncement when player is affected by Sarming Shadows
   
  - Valithria Dreamwalker Heroic
   - Fixed the starting trigger for the bossmod, portal timers are showing again
