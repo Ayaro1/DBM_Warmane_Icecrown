@@ -149,7 +149,7 @@ options = {
 	},
 	Width = {
 		type = "number",
-		default = 183,
+		default = 207,
 	},
 	Scale = {
 		type = "number",
