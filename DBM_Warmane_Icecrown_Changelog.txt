@@ -82,6 +82,7 @@ Raids
   - Adjusted the enrage timer to be more accurate
   - Added vocal anouncement when player is affected by Pact of the Darkfallen
   - Added vocal anouncement when player is affected by Sarming Shadows
+  - Added an optional Lordaeron tuned berserk timer, disabled by default
   
  - Valithria Dreamwalker Heroic
   - Fixed the starting trigger for the bossmod, portal timers are showing again
@@ -99,12 +100,14 @@ Raids
   - Added a raidchat notification "Instability_Reset" when casters/healers drop their stacks of Instability (Unchained Magic)
    - As of version 4.71 this notification now happens on say chat
     - Reverting this change with 4.72
+  - Added an optional Lordaeron tuned berserk timer, disabled by default
 
  - The Lich King Heroic
   - Fixed combat start timer
   - Fixed the first phase 2 Soul Reaper timer - Thanks to Arrj @ Warmane - Icecrown
   - Fixed Harvest Souls timers for Heroic mode
   - Added timer and warning for Phase 3 Defiles that happen after Harvest Souls
+  - Added an optional Lordaeron tuned berserk timer, disabled by default
   
  - The Lich King Normal
   - Added vocal anouncement when boss casts Infest
