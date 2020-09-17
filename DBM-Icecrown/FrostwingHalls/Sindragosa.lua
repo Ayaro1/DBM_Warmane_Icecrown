@@ -50,6 +50,7 @@ local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
 
 local berserkTimer				= mod:NewBerserkTimer(600)
+local berserkTimerLordaeron		= mod:NewTimer(390, "Berserk Timer Lordaeron", nil, false)
 
 local soundBlisteringCold = mod:NewSound(70123)
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
@@ -101,6 +102,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
+	berserkTimerLordaeron:Start()
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
 	warned_P2 = false

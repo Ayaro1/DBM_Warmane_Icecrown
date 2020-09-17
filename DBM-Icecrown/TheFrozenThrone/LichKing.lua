@@ -85,7 +85,8 @@ local timerTrapCD		 	= mod:NewCDTimer(15.5, 73539)
 local timerRestoreSoul 		= mod:NewCastTimer(40, 73650)
 local timerRoleplay			= mod:NewTimer(162, "TimerRoleplay", 72350)
 
-local berserkTimer			= mod:NewBerserkTimer(900)
+local berserkTimer				= mod:NewBerserkTimer(900)
+local berserkTimerLordaeron		= mod:NewTimer(735, "Berserk Timer Lordaeron", nil, false)
 
 local soundDefile			= mod:NewSound(72762)
 
@@ -537,6 +538,7 @@ function mod:NextPhase()
 	self.vb.phase = self.vb.phase + 1
 	if self.vb.phase == 1 then
 		berserkTimer:Start()
+		berserkTimerLordaeron:Start()
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)

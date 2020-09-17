@@ -43,6 +43,7 @@ local timerBloodThirst				= mod:NewBuffActiveTimer(10, 71474)
 local timerEssenceoftheBloodQueen	= mod:NewBuffActiveTimer(60, 71473)
 
 local berserkTimer					= mod:NewBerserkTimer(330)
+local berserkTimerLordaeron			= mod:NewTimer(300, "Berserk Timer Lordaeron", nil, false)
 
 local soundSwarmingShadows			= mod:NewSound(71266)
 
@@ -64,6 +65,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
+	berserkTimerLordaeron:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
 	timerNextSwarmingShadows:Start(-delay)
