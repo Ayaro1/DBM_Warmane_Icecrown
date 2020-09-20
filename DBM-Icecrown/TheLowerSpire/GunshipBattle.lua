@@ -61,7 +61,7 @@ function mod:OnCombatStart(delay)
 			timerAdds:Start(63-delay)
 			warnAddsSoon:Schedule(58)
 			self:ScheduleMethod(63, "Adds")
-			timerBelowZeroCD:Start(102-delay)--This doesn't make sense. Need more logs to verify
+			timerBelowZeroCD:Start(82-delay)--This doesn't make sense. Need more logs to verify
 		else
 			timerAdds:Start(57-delay)
 			warnAddsSoon:Schedule(52)
