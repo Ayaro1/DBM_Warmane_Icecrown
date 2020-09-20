@@ -36,8 +36,6 @@ Raids
   - Added "Spikes up in..." timer for when Bone Spikes is being cast
     This acts as a secondary timer next to the cooldown timer
   - Added vocal anouncement when Bone Spikes are being cast
-  - Added "Whirlwind starts in..." timer for when Bone Storm is being cast
-    This acts as a secondary timer next to the cooldown timer
 
  - Lady Deathwhisper Heroic
   - Fixed heroic mode timers by breaking normal mode
@@ -92,13 +90,15 @@ Raids
    - As of version 4.71 these have been turned off for healers
 
  - Sindragosa Heroic
-  - Set the Range Check to always use Heroic Mode values (20) regardless of difficulty (20 yards on Heroic, 12 yards on Normal)
+  - Set the Range Check to always use Heroic Mode values (20) regardless of difficulty (20 yards on Heroic, 10 yards on Normal)
   - Added a raidchat notification "Gained_Instability" when casters/healers gain a stack of Instability (Unchained Magic)
    - As of version 4.71 this notification doesn't start untill the caster has 4 stacks to reduce the chat spam
      This still causes "a little" chat spam depending on what stage of the fight you're in and what tactic you use
+     - As of 5.01 this has been disabled completely
   - Added a raidchat notification "Instability_Reset" when casters/healers drop their stacks of Instability (Unchained Magic)
    - As of version 4.71 this notification now happens on say chat
     - Reverting this change with 4.72
+     - As of 5.01 this has been disabled completely
   - Added an optional Lordaeron tuned berserk timer, disabled by default
 
  - The Lich King Heroic
@@ -163,6 +163,7 @@ Raids
 
  - Freya
   - Added /say anouncement for people affected by Iron Roots saying "Rooted"
+   - Removed due to bad coding on my part causing way to much spam
 
  - Also incorporated all the changes made in Ajseward's Frostmourne DBM
 
