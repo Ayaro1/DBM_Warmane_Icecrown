@@ -74,6 +74,8 @@ Raids
  - Professor Putricide
   - Added vocal anouncement when boss casts Malleable Goo
   - Added vocal anouncement when boss casts Gas Bomb
+  - Semi fixed Malleable goo timers
+  - Added special warning "Malleable Goo Soon" and set to be enabled by default
 
  - Blood-Queen Lana'thel Heroic
   - Adjusted the enrage timer to be more accurate
@@ -122,6 +124,9 @@ Raids
   - Adjusted timer for first adds to be more accurate
     First summon adds seems to be a bit random
   - Added "Adds arrive in..." timer
+
+ - Halion
+  - Added vocal anouncement when boss casts Meteor
 
 - Trial of the Crusader
 
