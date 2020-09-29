@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 5050 $"):sub(12, -3),
-	Version = "5.05",
-	DisplayVersion = "5.05 DBM Warmane edit by Sariyo.", -- the string that is shown as version
-	ReleaseRevision = 5050 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5070 $"):sub(12, -3),
+	Version = "5.07",
+	DisplayVersion = "5.07 DBM Warmane edit by Sariyo.", -- the string that is shown as version
+	ReleaseRevision = 5070 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -811,6 +811,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:LoadGUI()
 	end
 end
+
 SlashCmdList["PULL"] = function(msg) SlashCmdList["DEADLYBOSSMODS"]("pull "..msg) end
 SLASH_DBMRANGE1 = "/range"
 SLASH_DBMRANGE2 = "/distance"
@@ -2445,6 +2446,12 @@ function bossModPrototype:GetBossTarget(cid)
 			return UnitName("focustarget"), "focustarget"
 		end
 	end
+
+			-- Warmane Edit
+			if self:GetUnitCreatureId("boss1") == cid 
+			or UnitName("boss1") == "General Vezax" then
+				return UnitName("boss1target"), "boss1target"
+			end
 end
 
 function bossModPrototype:GetThreatTarget(cid)
@@ -2467,6 +2474,7 @@ function bossModPrototype:Stop(cid)
 	self:Unschedule()
 end
 
+-- Original difficulty check code
 -- hard coded party-mod support, yay :)
 -- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
 function bossModPrototype:GetDifficulty() 
@@ -2491,6 +2499,38 @@ function bossModPrototype:GetDifficulty()
 		end
 	end
 end 
+
+--[[
+-- Edited code to supposedly fix ICC difficulty checks
+-- hard coded party-mod support, yay :)
+-- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
+function bossModPrototype:GetDifficulty()
+	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
+	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
+		if difficulty == 1 then -- 10 men
+			return playerDifficulty == 0 and "normal10" or "unknown"
+		elseif difficulty == 2 then -- 25 men
+			return playerDifficulty == 0 and "normal25" or "unknown"
+		elseif difficulty == 3 then -- 10 men hc
+			return playerDifficulty == 1 and "heroic10" or "unknown"
+		elseif difficulty == 4 then -- 25 men hc
+			return playerDifficulty == 1 and "heroic25" or "unknown"
+		end
+	else -- support for "old" instances
+		if GetInstanceDifficulty() == 1 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
+			self.hasHeroic and "normal10" or "heroic10"
+		elseif GetInstanceDifficulty() == 2 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
+			self.hasHeroic and "normal25" or "heroic25"
+		elseif GetInstanceDifficulty() == 3 then
+			return "heroic10"
+		elseif GetInstanceDifficulty() == 4 then
+			return "heroic25"
+		end
+	end
+end
+]]--
 
 function bossModPrototype:IsDifficulty(...)
 	local diff = self:GetDifficulty()
@@ -2679,6 +2719,26 @@ do
 		return obj
 	end
 	
+	function bossModPrototype:NewAnnounceCustom(text, color, icon, optionDefault, optionName)
+		local obj = setmetatable(
+			{
+				text = self.localization.warnings[text],
+				color = {r = 0.00, g = 1.00, b = 0.00},
+				option = optionName or text,
+				mod = self,
+				icon = (type(icon) == "number" and select(3, GetSpellInfo(icon))) or icon,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(optionName or text, optionDefault, "announce")
+		end
+		table.insert(self.announces, obj)
+		return obj
+	end
+
 	-- new constructor (auto-localized warnings and options, yay!)
 	local function newAnnounce(self, announceType, spellId, color, icon, optionDefault, optionName, castTime, preWarnTime)
 		spellName = GetSpellInfo(spellId) or "unknown"
@@ -3270,6 +3330,36 @@ do
 			spellName = GetSpellInfo(spellId)
 		end
 		return pformat(DBM_CORE_AUTO_TIMER_TEXTS[timerType], spellName)
+	end
+	
+	function bossModPrototype:CountdownSound5()
+		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+	end
+	
+	function bossModPrototype:CountdownSound4()
+		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+	end
+	
+	function bossModPrototype:CountdownSound3()
+		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+	end
+	
+	function bossModPrototype:CountdownSound2()
+		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+	end
+	
+	function bossModPrototype:CountdownSound1()
+		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+	end
+
+	function bossModPrototype:CountdownFinalSeconds(optionEnabled, targetValue)		-- counts down towards value, beginning targetValue - 5
+		if optionEnabled then
+			self:ScheduleMethod(targetValue - 5, "CountdownSound5")
+			self:ScheduleMethod(targetValue - 4, "CountdownSound4")
+			self:ScheduleMethod(targetValue - 3, "CountdownSound3")
+			self:ScheduleMethod(targetValue - 2, "CountdownSound2")
+			self:ScheduleMethod(targetValue - 1, "CountdownSound1")
+		end
 	end
 end
 
