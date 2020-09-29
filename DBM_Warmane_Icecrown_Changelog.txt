@@ -21,6 +21,7 @@ General Modifications
 - Removed some code that was edited out to reduce file size and RAM load
 - Added a LFG cooldown timer after successfully entering LFG - Made by Underlord from Sunwell
  - Temporarily disabled
+- Added vocal countdown to /pull for the final 5 seconds
 
 
 Bosstimer Fixes
