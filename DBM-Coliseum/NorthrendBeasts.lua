@@ -41,7 +41,7 @@ local specWarnChargeNear	= mod:NewSpecialWarning("SpecialWarningChargeNear")
 local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemoveEnrage())
 
 local enrageTimer			= mod:NewBerserkTimer(223)
-local timerCombatStart		= mod:NewTimer(22.5, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(23, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
 local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp") 
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
@@ -267,6 +267,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.Charge) or msg:find(L.Charge) then
 		timerNextCrash:Start()
+		--timerCombatStart:Show(9)
 		if self.Options.ClearIconsOnIceHowl then
 			self:ClearIcons()
 		end
@@ -307,7 +308,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Show(11)
+		timerCombatStart:Show(12.5)
 		updateHealthFrame(2)
 		self.vb.phase = 2
 		if self.Options.RangeFrame then
