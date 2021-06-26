@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
-mod:SetCreatureID(37970, 37972, 37973)
+mod:SetCreatureID(37970, 37972, 37973, 37955)
 mod:SetUsedIcons(7, 8)
 
 mod:SetBossHealthInfo(
@@ -265,7 +265,7 @@ function mod:OnSync(msg, target)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.FirstPull or msg:find(L.FirstPull) then
+	if msg == L.Foolish or msg:find(L.Foolish) then
 		timerCombatStart:Start()
 	end
 end
