@@ -64,7 +64,7 @@ function mod:OnCombatStart(delay)
 	else
 		enrageTimer:Start(360-delay)
 	end
-	timerCallBloodBeast:Start(-10-delay)
+	timerCallBloodBeast:Start(-delay)
 	warnAddsSoon:Schedule(30-delay)
 	timerBloodNova:Start(-delay)
 	timerRuneofBlood:Start(-delay)
