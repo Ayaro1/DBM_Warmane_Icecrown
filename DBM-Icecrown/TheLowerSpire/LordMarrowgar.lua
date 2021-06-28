@@ -85,24 +85,10 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif args:IsSpellID(69076) then
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
-			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal - Edit from 15 to 1 for Heroic Mode
-		end
-	end
-end
-
---[[
-function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(69065) then			-- Impaled
-		if self.Options.SetIconOnImpale then
-			self:SetIcon(args.destName, 0)
-		end
-	elseif args:IsSpellID(69076) then
-		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
 end
-]]
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69057, 70826, 72088, 72089) then		-- Bone Spike Graveyard
