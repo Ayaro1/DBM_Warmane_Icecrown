@@ -118,29 +118,6 @@ function mod:OnCombatStart(delay)
 	end
 end
 
---[[ Original CombatStart Config
-function mod:OnCombatStart(delay)
-	berserkTimer:Start(-delay)
-	timerNextAirphase:Start(50-delay)
-	timerNextBlisteringCold:Start(33-delay)
-	warned_P2 = false
-	warnedfailed = false
-	table.wipe(beaconTargets)
-	table.wipe(beaconIconTargets)
-	table.wipe(unchainedTargets)
-	unchainedIcons = 7
-	phase = 1
-	activeBeacons = false
-	if self.Options.RangeFrame then
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-			DBM.RangeCheck:Show(20, GetRaidTargetIndex)
-		else
-			DBM.RangeCheck:Show(10, GetRaidTargetIndex)
-		end
-	end
-end
-]]--
-
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
