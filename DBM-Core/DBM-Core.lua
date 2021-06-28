@@ -2474,7 +2474,6 @@ function bossModPrototype:Stop(cid)
 	self:Unschedule()
 end
 
--- Original difficulty check code
 -- hard coded party-mod support, yay :)
 -- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
 function bossModPrototype:GetDifficulty() 
