@@ -2500,38 +2500,6 @@ function bossModPrototype:GetDifficulty()
 	end
 end 
 
---[[
--- Edited code to supposedly fix ICC difficulty checks
--- hard coded party-mod support, yay :)
--- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
-function bossModPrototype:GetDifficulty()
-	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
-	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
-		if difficulty == 1 then -- 10 men
-			return playerDifficulty == 0 and "normal10" or "unknown"
-		elseif difficulty == 2 then -- 25 men
-			return playerDifficulty == 0 and "normal25" or "unknown"
-		elseif difficulty == 3 then -- 10 men hc
-			return playerDifficulty == 1 and "heroic10" or "unknown"
-		elseif difficulty == 4 then -- 25 men hc
-			return playerDifficulty == 1 and "heroic25" or "unknown"
-		end
-	else -- support for "old" instances
-		if GetInstanceDifficulty() == 1 then
-			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
-			self.hasHeroic and "normal10" or "heroic10"
-		elseif GetInstanceDifficulty() == 2 then
-			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
-			self.hasHeroic and "normal25" or "heroic25"
-		elseif GetInstanceDifficulty() == 3 then
-			return "heroic10"
-		elseif GetInstanceDifficulty() == 4 then
-			return "heroic25"
-		end
-	end
-end
-]]--
-
 function bossModPrototype:IsDifficulty(...)
 	local diff = self:GetDifficulty()
 	for i = 1, select("#", ...) do
