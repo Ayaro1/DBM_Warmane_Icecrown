@@ -60,6 +60,7 @@ Raids
     Alliance and Horde have seperate code
     I don't play Horde side so that's not getting fixed anytime soon unless someone is willing to provide data
   - Fixed the timer for the first set of Bloodbeasts
+   - Fixed again
   - Added vocal anouncement when boss summons Bloodbeasts
 
  - Rotface Heroic
@@ -134,9 +135,11 @@ Raids
  - Northrend Beasts
   - Gormok the Impaler
    - Fixed combat start timer
+    - Fixed again
 
   - Acidmaw & Dreadscale
    - Fixed combat start timer
+    - Fixed again
    - Adjusted submerge timer to be more accurate, improvements still needed
      Hard cooldown for submerge is 45 seconds, but new timer doesn't trigger untill after worms come up and use a special ability
      Special abilities are being used between 3-5 seconds after the worm comes up again
