@@ -249,31 +249,6 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
---[[
-function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(69762) then
-		if self.Options.SetIconOnUnchainedMagic and not activeBeacons then
-			self:SetIcon(args.destName, 0)
-		end
-	elseif args:IsSpellID(70126) then
-		activeBeacons = false
-	elseif args:IsSpellID(70106) then	--Chilled to the bone (melee)
-		if args:IsPlayer() then
-			timerChilledtotheBone:Cancel()
-		end
-	elseif args:IsSpellID(69766) then	--Instability (casters)
-		if args:IsPlayer() then
-			timerInstability:Cancel()
-		end
-	elseif args:IsSpellID(70127, 72528, 72529, 72530) then
-		if args:IsPlayer() then
-			timerMysticAchieve:Cancel()
-			timerMysticBuffet:Cancel()
-		end
-	end
-end
-]]
-
 function mod:UNIT_HEALTH(uId)
 	if not warned_P2 and self:GetUnitCreatureId(uId) == 36853 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		warned_P2 = true
