@@ -103,7 +103,7 @@ function mod:OnCombatStart(delay)
 	AcidmawDead = false
 	specWarnSilence:Schedule(37-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerNextBoss:Start(175 - delay)
+		timerNextBoss:Start(175-delay)
 		timerNextBoss:Schedule(170)
 	end
 	timerNextStomp:Start(38-delay)
@@ -267,18 +267,11 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.Charge) or msg:find(L.Charge) then
 		timerNextCrash:Start()
-		--timerCombatStart:Show(9)
 		if self.Options.ClearIconsOnIceHowl then
 			self:ClearIcons()
 		end
 		if target == UnitName("player") then
---[[			local x, y = GetPlayerMapPosition(target)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(target)
-			end--]]
 			specWarnCharge:Show()
---			DBM.Arrow:ShowRunAway(x, y, 12, 5)
 			if self.Options.PingCharge then
 				Minimap:PingLocation()
 			end

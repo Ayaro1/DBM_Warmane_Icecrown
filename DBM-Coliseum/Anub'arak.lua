@@ -60,6 +60,7 @@ local enrageTimer			= mod:NewBerserkTimer(570)	-- 9:30 ? hmpf (no enrage while s
 -- Penetrating Cold
 local specWarnPCold			= mod:NewSpecialWarningYou(68510, false)
 local timerPCold			= mod:NewBuffActiveTimer(15, 68509)
+
 mod:AddBoolOption("SetIconsOnPCold", true)
 mod:AddBoolOption("AnnouncePColdIcons", false)
 mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
@@ -199,7 +200,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel() 
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) then							-- Shadow Strike
+	elseif args:IsSpellID(66134) then	-- Shadow Strike
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()
