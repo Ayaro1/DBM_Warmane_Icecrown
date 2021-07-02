@@ -315,6 +315,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		self:UnscheduleMethod("WormsSubmerge")
 		timerNextCrash:Start(52)
+		timerCombatStart:Show(9)
 		timerNextCrashTwo:Schedule(52)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
