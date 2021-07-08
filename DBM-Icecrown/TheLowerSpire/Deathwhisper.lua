@@ -42,7 +42,6 @@ local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, mod:IsMelee())
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", not mod:IsTank())
 
---[[local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131)]]--
 local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
@@ -124,20 +123,6 @@ do	-- add the additional Shield Bar
 		DBM.BossHealth:AddBoss(getShieldPercent, L.ShieldPercent)
 	end
 end
-
---[[function mod:addsTimer()  -- Original add spawn timers, working for normal mode
-	timerAdds:Cancel()
-	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:ScheduleMethod(45, "addsTimer")
-		timerAdds:Start(45)
-	else
-		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
-		self:ScheduleMethod(60, "addsTimer")
-		timerAdds:Start()
-	end
-end]]--
 
 function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	timerAdds:Cancel()
@@ -315,6 +300,18 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:RemoveBuffs()
-	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
-	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
+	CancelUnitBuff("player", (GetSpellInfo(1126)))		-- Mark of the Wild Rank 1
+	CancelUnitBuff("player", (GetSpellInfo(5232)))		-- Mark of the Wild Rank 2
+	CancelUnitBuff("player", (GetSpellInfo(6756)))		-- Mark of the Wild Rank 3
+	CancelUnitBuff("player", (GetSpellInfo(5234)))		-- Mark of the Wild Rank 4
+	CancelUnitBuff("player", (GetSpellInfo(8907)))		-- Mark of the Wild Rank 5
+	CancelUnitBuff("player", (GetSpellInfo(9884)))		-- Mark of the Wild Rank 6
+	CancelUnitBuff("player", (GetSpellInfo(9885)))		-- Mark of the Wild Rank 7
+	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild Rank 8
+	CancelUnitBuff("player", (GetSpellInfo(48469)))		-- Mark of the Wild Rank 9
+	CancelUnitBuff("player", (GetSpellInfo(21849)))		-- Gift of the Wild Rank 1
+	CancelUnitBuff("player", (GetSpellInfo(21850)))		-- Gift of the Wild Rank 2
+	CancelUnitBuff("player", (GetSpellInfo(26991)))		-- Gift of the Wild Rank 3
+	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild Rank 4
+	CancelUnitBuff("player", (GetSpellInfo(69381)))		-- Drums of the Wild
 end
