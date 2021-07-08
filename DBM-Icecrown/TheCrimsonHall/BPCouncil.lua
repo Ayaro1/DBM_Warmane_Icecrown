@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
-mod:SetCreatureID(37970, 37972, 37973, 37955)
+mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(7, 8)
 
 mod:SetBossHealthInfo(
@@ -41,15 +41,15 @@ local specWarnEmpoweredShockV	= mod:NewSpecialWarningRun(72039)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040)
 local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6)
 
-local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- every 46-47seconds
-local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false)	-- usually every 10 seconds but sometimes more
-local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718)				-- every 20-30 seconds but never more often than every 20sec
-local timerGlitteringSparksCD	= mod:NewCDTimer(20, 72798)				-- This is pretty nasty on heroic
-local timerShockVortex			= mod:NewCDTimer(16.5, 72037)			-- Seen a range from 16,8 - 21,6
-local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())				-- Might need tweaking
-local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)		-- Hard mode debuff
+local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)		-- every 46-47seconds
+local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false)				-- usually every 10 seconds but sometimes more
+local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718)							-- every 20-30 seconds but never more often than every 20sec
+local timerGlitteringSparksCD	= mod:NewCDTimer(20, 72798)							-- This is pretty nasty on heroic
+local timerShockVortex			= mod:NewCDTimer(16.5, 72037)						-- Seen a range from 16,8 - 21,6
+local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())	-- Might need tweaking
+local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)					-- Hard mode debuff
 
-local timerCombatStart			= mod:NewTimer(29, "Combat starts in...", 2457) -- Roleplay for first pull
+local timerCombatStart			= mod:NewTimer(29) 				-- Roleplay for first pull
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
@@ -57,7 +57,7 @@ mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)
 mod:AddBoolOption("RangeFrame", true)
 mod:AddBoolOption("VortexArrow")
-mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
+mod:AddBoolOption("BypassLatencyCheck", false)	--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
 local activePrince
 local glitteringSparksTargets	= {}
@@ -88,7 +88,7 @@ end
 function mod:ShockVortexTarget()
 	local targetname = self:GetBossTarget(37970)
 	if not targetname then return end
-	if mod:LatencyCheck() then--Only send sync Shock Vortex target if you have low latency.
+	if mod:LatencyCheck() then	--Only send sync Shock Vortex target if you have low latency.
 		self:SendSync("ShockVortex", targetname)
 	end
 end
@@ -265,7 +265,7 @@ function mod:OnSync(msg, target)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.Foolish or msg:find(L.Foolish) then
+	if msg == L.FirstPull or msg:find(L.FirstPull) then
 		timerCombatStart:Start()
 	end
 end

@@ -351,6 +351,7 @@ L:SetWarningLocalization{
 
 L:SetTimerLocalization{
 	TimerTargetSwitch		= "Target switch"
+	TimerCombatStart		= "Combat starts" -- Addition to show when bosses become active after first roleplay
 }
 
 L:SetOptionLocalization{
@@ -363,14 +364,16 @@ L:SetOptionLocalization{
 	ActivePrinceIcon		= "Set icon on the empowered Prince (skull)",
 	RangeFrame				= "Show range frame (12 yards)",
 	VortexArrow				= "Show DBM arrow when $spell:72037 is near you",
-	BypassLatencyCheck		= "Don't use latency based sync check for $spell:72037\n(only use this if you're having problems otherwise)"
+	BypassLatencyCheck		= "Don't use latency based sync check for $spell:72037\n(only use this if you're having problems otherwise)",
+	TimerCombatStart		= "Show timer for start of combat"
 }
 
 L:SetMiscLocalization{
 	Keleseth			= "Prince Keleseth",
 	Taldaram			= "Prince Taldaram",
 	Valanar				= "Prince Valanar",
-	EmpoweredFlames		= "Empowered Flames speed toward (%S+)!"
+	EmpoweredFlames		= "Empowered Flames speed toward (%S+)!",
+	FirstPull			= "Foolish mortals. You thought us defeated so easily? The San'layn are the Lich King's immortal soldiers! Now you shall face their might combined!"
 }
 
 -----------------------------
