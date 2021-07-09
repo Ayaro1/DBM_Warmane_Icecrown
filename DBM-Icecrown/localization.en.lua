@@ -148,7 +148,8 @@ L:SetOptionLocalization{
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
-	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control"
+	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
+	RemoveDruidBuff				= "Remove Druid buff 24 seconds into the fight"
 }
 
 L:SetMiscLocalization{
