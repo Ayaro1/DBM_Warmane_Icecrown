@@ -351,7 +351,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerTargetSwitch		= "Target switch"
+	TimerTargetSwitch		= "Target switch",
 	TimerCombatStart		= "Combat starts" -- Addition to show when bosses become active after first roleplay
 }
 
