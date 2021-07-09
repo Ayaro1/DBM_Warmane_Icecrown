@@ -860,7 +860,7 @@ do
 		end
 	end
 	function DBM:ShowRelease(notify)
-			if DBM:GetRaidRank() == 0 then
+		if DBM:GetRaidRank() == 0 then
 			DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
 			return
 		end
