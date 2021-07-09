@@ -43,10 +43,10 @@ local timerCorrosion	= mod:NewTargetTimer(6, 70751, nil, false)
 local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204)
 local timerAbom				= mod:NewTimer(50, "TimerAbom", 43392)--Experimental
 
-local timerSuppresserOne	= mod:NewTimer(70, "1st wave of Suppressors", not mod:IsHealer())
-local timerSuppresserTwo	= mod:NewTimer(60, "2nd wave of Suppressors", not mod:IsHealer())
-local timerSuppresserThree	= mod:NewTimer(60, "3rd wave of Suppressors", not mod:IsHealer())
-local timerSuppresserFour	= mod:NewTimer(60, "4th wave of Suppressors", not mod:IsHealer())
+local timerSuppresserOne	= mod:NewTimer(30, "1st wave of Suppressors", not mod:IsHealer())
+local timerSuppresserTwo	= mod:NewTimer(58, "2nd wave of Suppressors", not mod:IsHealer())
+local timerSuppresserThree	= mod:NewTimer(68, "3rd wave of Suppressors", not mod:IsHealer())
+local timerSuppresserFour	= mod:NewTimer(50, "4th wave of Suppressors", not mod:IsHealer())
 
 local berserkTimer		= mod:NewBerserkTimer(420)
 
@@ -96,13 +96,13 @@ function mod:OnCombatStart(delay)
 	table.wipe(GutSprayTargets)
 	blazingSkeleton = nil
 	timerSuppresserOne:Start(-delay)
-	timerSuppresserTwo:Schedule(69)
-	timerSuppresserThree:Schedule(124)
-	timerSuppresserFour:Schedule(179)
-	specWarnSuppresserOne:Schedule(70)
-	specWarnSuppresserTwo:Schedule(129)
-	specWarnSuppresserThree:Schedule(184)
-	specWarnSuppresserFour:Schedule(239)
+	timerSuppresserTwo:Schedule(30)
+	timerSuppresserThree:Schedule(88)
+	timerSuppresserFour:Schedule(150)
+	specWarnSuppresserOne:Schedule(30)
+	specWarnSuppresserTwo:Schedule(88)
+	specWarnSuppresserThree:Schedule(150)
+	specWarnSuppresserFour:Schedule(200)
 end
 
 function mod:Portals()
