@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
-mod:SetCreatureID(37970, 37972, 37973)
+mod:SetCreatureID(37970, 37972, 37973, 37955)
 mod:SetUsedIcons(7, 8)
 
 mod:SetBossHealthInfo(
@@ -49,7 +49,7 @@ local timerShockVortex			= mod:NewCDTimer(16.5, 72037)						-- Seen a range from
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())	-- Might need tweaking
 local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)					-- Hard mode debuff
 
-local timerCombatStart			= mod:NewTimer(29) 				-- Roleplay for first pull
+local timerCombatStart			= mod:NewTimer(29, "TimerCombatStart") 				-- Roleplay for first pull
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
