@@ -185,7 +185,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(66118, 67630, 68646, 68647) then			-- Swarm (start p3)
+	if args:IsSpellID(66118, 67630, 68646, 68647) then		-- Swarm (start p3)
 		warnPhase3:Show()
 		warnEmergeSoon:Cancel()
 		warnSubmergeSoon:Cancel()
@@ -200,7 +200,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel() 
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) then	-- Shadow Strike
+	elseif args:IsSpellID(66134) then		-- Shadow Strike
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()
