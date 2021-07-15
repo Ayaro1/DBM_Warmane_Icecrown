@@ -47,3 +47,4 @@ Jaraxxus.lua
 Champions.lua
 Twins.lua
 Anub'arak.lua
+Roleplay.lua
