@@ -79,6 +79,9 @@ Raids
   - Semi fixed Malleable goo timers
   - Added special warning "Malleable Goo Soon" and set to be enabled by default
 
+ - Blood Prince Council
+  - Added Roleplay timer for first pull
+
  - Blood-Queen Lana'thel Heroic
   - Adjusted the enrage timer to be more accurate
   - Added vocal anouncement when player is affected by Pact of the Darkfallen
@@ -158,6 +161,8 @@ Raids
   - Fixed timer for the first Nether Portal
   - Added a seperate timer with warning for the second Nether Portal since the original timer does not activate after the first portal spawns
 
+ - Added RP timer for the Lich King event after Twin Valkyrs die
+
  - Anub'Arak
   - Added a seperate timer, warning and special warning for the second submerge since the original does not reactivate after the first burrow
   - Added extra timers for the first and second emerge since the triggers for that are unstable
@@ -172,7 +177,7 @@ Raids
 
  - Freya
   - Added /say anouncement for people affected by Iron Roots saying "Rooted"
-   - Removed due to bad coding on my part causing way to much spam
+   - Removed due to bad coding on my part causing way too much spam
 
  - Also incorporated all the changes made in Ajseward's Frostmourne DBM (https://github.com/ajseward/DBM-Frostmourne)
 
