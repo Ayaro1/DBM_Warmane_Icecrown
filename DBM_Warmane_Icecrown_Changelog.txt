@@ -95,6 +95,7 @@ Raids
   - Fixed Blazing Skeleton timers
   - Added timers and special warnings for Suppressors
    - As of version 4.71 these have been turned off for healers
+   - Reconfigured these timers after Warmane's overhaul for this boss
 
  - Sindragosa Heroic
   - Set the Range Check to always use Heroic Mode values (20) regardless of difficulty (20 yards on Heroic, 10 yards on Normal)
