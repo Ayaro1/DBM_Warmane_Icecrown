@@ -88,6 +88,10 @@ L:SetWarningLocalization{
 	SpecWarnFelFireballDispel	= "Boule de feu sur %s - Dispel"
 }
 
+L:SetTimerLocalization{
+	--TimerCombatStart		= "Combat starts" -- Needs translating
+}
+
 L:SetMiscLocalization{
 	WhisperFlame				= "Flamme de la Légion sur VOUS!",
 	IncinerateTarget			= "Incinérer la chair: %s"
@@ -112,6 +116,10 @@ L:SetOptionLocalization{
 	IncinerateShieldFrame		= "Montre la vie du Boss avec une barre de vie pour Incinérer la chair"
 }
 
+L:SetMiscLocalization{
+	--FirstPull	= "Grand Warlock Wilfred Fizzlebang will summon forth your next challenge. Stand by for his entry." --Needs translating
+}
+
 -----------------------
 -- Faction Champions --
 -----------------------
@@ -132,6 +140,7 @@ L:SetWarningLocalization{
 }
 
 L:SetMiscLocalization{
+	--Horde NPCS
 	Gorgrim					= "DK - Gorgrim Fend-les-ombres",		-- 34458
 	Birana 					= "Druide - Birana Sabot-tempête",		-- 34451
 	Erin					= "Druide - Erin Sabot-de-brume",		-- 34459
@@ -146,8 +155,9 @@ L:SetMiscLocalization{
 	Broln					= "Chaman - Broln Corne-rude",			-- 34455
 	Harkzog					= "Démoniste - Harkzog",				-- 34450
 	Narrhok					= "Guerrier - Narrhok Brise-acier",		-- 34453
-	AllianceVictory    = "GLORY TO THE ALLIANCE!",
-	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",
+	
+	AllianceVictory			= "GLORY TO THE ALLIANCE!",
+	HordeVictory			= "That was just a taste of what the future brings. FOR THE HORDE!",
 	YellKill				= "Une victoire tragique et depourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait beneficier d'une telle folie?? De grands guerriers ont perdu la vie. Et pour quoi?? La vraie menace plane à l'horizon?: le roi-liche nous attend, tous, dans la mort."
 } 
 
@@ -186,6 +196,7 @@ L:SetWarningLocalization{
 
 L:SetMiscLocalization{
 	YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
+	--CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!", -- Needs translating
 	Fjola 		= "Fjola Plaie-lumineuse",
 	Eydis		= "Eydis Plaie-sombre"
 }
@@ -257,4 +268,3 @@ L:SetOptionLocalization{
 	SetIconsOnPCold         = "Met une icone sur la cible du Froid pénétrant",
 	AnnouncePColdIcons		= "Marque les icones des cible du Froid pénétrant dans le chatt (Requiert les annonces activer et être le leader ou avoir une promot)"
 }
-

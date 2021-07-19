@@ -14,12 +14,12 @@ L:SetGeneralLocalization{
 L:SetMiscLocalization{
 	Charge			= "%%s sieht (%S+) zornig an und lässt einen gewaltigen Schrei ertönen!",
 	CombatStart		= "Er kommt aus den tiefsten, dunkelsten Höhlen der Sturmgipfel - Gormok der Pfähler! Voran, Helden!",
-	Phase2		= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
-	Phase3		= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
-	Gormok		= "Gormok der Pfähler",
-	Acidmaw		= "Ätzschlund",
-	Dreadscale	= "Schreckensmaul",
-	Icehowl		= "Eisheuler"
+	Phase2			= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
+	Phase3			= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
+	Gormok			= "Gormok der Pfähler",
+	Acidmaw			= "Ätzschlund",
+	Dreadscale		= "Schreckensmaul",
+	Icehowl			= "Eisheuler"
 }
 
 L:SetOptionLocalization{
@@ -43,10 +43,10 @@ L:SetOptionLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerNextBoss		= "Nächster Boss",
-	TimerCombatStart	= "Kampf beginnt",
-	TimerEmerge			= "Auftauchen",
-	TimerSubmerge		= "Untertauchen"
+	TimerNextBoss				= "Nächster Boss",
+	TimerCombatStart			= "Kampf beginnt",
+	TimerEmerge					= "Auftauchen",
+	TimerSubmerge				= "Untertauchen"
 }
 
 L:SetWarningLocalization{
@@ -168,6 +168,7 @@ L:SetWarningLocalization{
 
 L:SetMiscLocalization{
 	YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
+	--CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!", -- Needs translating
 	Fjola		= "Fjola Lichtbann",
 	Eydis		= "Eydis Nachtbann"
 }
@@ -215,8 +216,8 @@ L:SetMiscLocalization{
 	YellPull				= "Dieser Ort wird Euch als Grab dienen!",
 	Emerge					= "entsteigt dem Boden!",
 	Burrow					= "gräbt sich in den Boden!",
-	PcoldIconSet		= "DKälte-Zeichen {rt%d} auf %s gesetzt",
-	PcoldIconRemoved	= "DKälte-Zeichen von %s entfernt"
+	PcoldIconSet			= "DKälte-Zeichen {rt%d} auf %s gesetzt",
+	PcoldIconRemoved		= "DKälte-Zeichen von %s entfernt"
 }
 
 L:SetOptionLocalization{
