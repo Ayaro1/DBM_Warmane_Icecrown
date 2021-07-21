@@ -167,8 +167,8 @@ Raids
  - Anub'Arak
   - Added a seperate timer, warning and special warning for the second submerge since the original does not reactivate after the first burrow
   - Added extra timers for the first and second emerge since the triggers for that are unstable
-    The way they're scheduled might cause the "2nd Emerge" timer to start running while you're already in the final phase of Anub
-    However this is only just a timer bar so it shouldn't clutter your screen too much and it beats having nothing
+  - Reworked timers for Shadowstrike on Heroic difficulty
+  - Adjust the default setting for "Remove HP Buffs at the start of P3" to be enabled by default for healers and dps.
 
 
 - Ulduar
