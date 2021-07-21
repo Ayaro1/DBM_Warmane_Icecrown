@@ -194,12 +194,12 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(65874, 67256, 67257, 67258) then			-- Shield of Darkness
+	if args:IsSpellID(65874, 67256, 67257, 67258) then		-- Shield of Darkness
 		if UnitCastingInfo("target") and self:GetUnitCreatureId("target") == 34496 then
 			specWarnKickNow:Show()
 		end
 		hideShieldHealthBar()
-	elseif args:IsSpellID(65858, 67259, 67260, 67261) then		-- Shield of Lights
+	elseif args:IsSpellID(65858, 67259, 67260, 67261) then	-- Shield of Lights
 		if UnitCastingInfo("target") and self:GetUnitCreatureId("target") == 34497 then
 			specWarnKickNow:Show()
 		end
@@ -210,7 +210,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(66001, 67281, 67282, 67283) then	-- Touch of Darkness
-		timerDarkTouch:Start(args.destName)
+		timerDarkTouch:Stop(args.destName)
 		if self.Options.SetIconOnDebuffTarget then
 			self:SetIcon(args.destName, 0)
 		end
