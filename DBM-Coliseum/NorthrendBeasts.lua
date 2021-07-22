@@ -43,7 +43,7 @@ local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemo
 local enrageTimer			= mod:NewBerserkTimer(223)
 local timerCombatStart		= mod:NewTimer(23, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
-local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp") 
+local timerSubmerge			= mod:NewTimer(45, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp") 
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 local timerBreath			= mod:NewCastTimer(5, 67650)
@@ -170,7 +170,7 @@ function mod:WormsSubmerge()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
+	if args:IsSpellID(67477, 66331, 67478, 67479) then	-- Impale
 		timerNextImpale:Start()
 		warnImpaleOn:Show(args.destName)
 	elseif args:IsSpellID(67657, 66759, 67658, 67659) then	-- Frothing Rage
@@ -183,7 +183,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnToxin:Show()
 		end
 		mod:ScheduleMethod(0.2, "warnToxin")
-	elseif args:IsSpellID(66869) then		-- Burning Bile
+	elseif args:IsSpellID(66869) then	-- Burning Bile
 		self:UnscheduleMethod("warnBile")
 		bileTargets[#bileTargets + 1] = args.destName
 		if args:IsPlayer() then
@@ -194,18 +194,18 @@ function mod:SPELL_AURA_APPLIED(args)
 			burnIcon = burnIcon - 1
 		end
 		mod:ScheduleMethod(0.2, "warnBile")
-	elseif args:IsSpellID(66758) then
+	elseif args:IsSpellID(66758) then	-- Staggered Daze
 		timerStaggeredDaze:Start()
-	elseif args:IsSpellID(66636) then			-- Rising Anger
+	elseif args:IsSpellID(66636) then	-- Rising Anger
 		WarningSnobold:Show()
 		timerRisingAnger:Show()
-	elseif args:IsSpellID(68335) then
+	elseif args:IsSpellID(68335) then	-- Enrage
 		warnEnrageWorm:Show()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED_DOSE(args)
-	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
+	if args:IsSpellID(67477, 66331, 67478, 67479) then	-- Impale
 		timerNextImpale:Start()
 		warnImpaleOn:Show(args.destName)
 		if (args.amount >= 3 and not self:IsDifficulty("heroic10", "heroic25") ) or ( args.amount >= 2 and self:IsDifficulty("heroic10", "heroic25") ) then 
@@ -213,7 +213,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 				specWarnImpale3:Show(args.amount)
 			end
 		end
-	elseif args:IsSpellID(66636) then			-- Rising Anger
+	elseif args:IsSpellID(66636) then	-- Rising Anger
 		WarningSnobold:Show()
 		if args.amount <= 3 then
 			timerRisingAnger:Show()
@@ -242,6 +242,9 @@ function mod:SPELL_CAST_START(args)
 		timerParalyticSprayCD:Start()
 	elseif args:IsSpellID(66902, 67627, 67628, 67629) then		-- Burning Spray
 		timerBurningSprayCD:Start()
+	elseif args:IsSpellID(66683, 67660, 67661, 67662) then		-- Warmane workaound: Icehowl Massive Crash
+		timerNextCrash:Cancel()
+		timerNextCrash:Start()
 	end
 end
 
@@ -259,7 +262,7 @@ end
 function mod:SPELL_DAMAGE(args)
 	if args:IsPlayer() and (args:IsSpellID(66320, 67472, 67473, 67475) or args:IsSpellID(66317)) then	-- Fire Bomb (66317 is impact damage, not avoidable but leaving in because it still means earliest possible warning to move. Other 4 are tick damage from standing in it)
 		specWarnFireBomb:Show()
-	elseif args:IsPlayer() and args:IsSpellID(66881, 67638, 67639, 67640) then							-- Slime Pool
+	elseif args:IsPlayer() and args:IsSpellID(66881, 67638, 67639, 67640) then	-- Slime Pool
 		specWarnSlimePool:Show()
 	end
 end
@@ -314,11 +317,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			enrageTimer:Start()
 		end
 		self:UnscheduleMethod("WormsSubmerge")
+		self:UnscheduleMethod("WormsEmerge")
+		timerCombatStart:Start(9)
 		timerNextCrash:Start(52)
-		timerCombatStart:Show(9)
 		timerNextCrashTwo:Schedule(52)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
+		timerEmerge:Cancel()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
@@ -343,6 +348,7 @@ function mod:UNIT_DIED(args)
 			timerSlimePoolCD:Cancel()
 		end
 		if DreadscaleDead then
+			timerNextBoss:Cancel()
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
@@ -357,6 +363,7 @@ function mod:UNIT_DIED(args)
 			timerSweepCD:Cancel()
 		end
 		if AcidmawDead then
+			timerNextBoss:Cancel()
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
