@@ -60,7 +60,7 @@ f:SetScript("OnUpdate", fCLFix)
 DBM = {
 	Revision = ("$Revision: 5075 $"):sub(12, -3),
 	Version = "5.07",
-	DisplayVersion = "5.07 DBM Warmane edit by Ayaro.", -- the string that is shown as version
+	DisplayVersion = "5.07 DBM Warmane edit by Ayaro/Sariyo.", -- the string that is shown as version
 	ReleaseRevision = 5075 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
