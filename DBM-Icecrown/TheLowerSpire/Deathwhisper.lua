@@ -11,6 +11,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
 	"SPELL_INTERRUPT",
 	"SPELL_SUMMON",
 	"SWING_DAMAGE",
@@ -29,7 +30,7 @@ local warnSummonSpirit				= mod:NewSpellAnnounce(71426, 2)
 local warnReanimating				= mod:NewAnnounce("WarnReanimating", 3)
 local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
-local warnPhase2					= mod:NewPhaseAnnounce(2, 1)	
+local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
 local warnFrostbolt					= mod:NewCastAnnounce(72007, 2)
 local warnTouchInsignificance		= mod:NewAnnounce("WarnTouchInsignificance", 2, 71204, mod:IsTank() or mod:IsHealer())
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
@@ -51,6 +52,7 @@ local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, mod:IsTank(
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
+mod:AddBoolOption("EnableAutoWeaponUnequipOnMC", not mod:IsTank())
 mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
@@ -72,7 +74,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
-	end		
+	end
 	berserkTimer:Start(-delay)
 	timerAdds:Start(7)
 	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
@@ -85,6 +87,9 @@ function mod:OnCombatStart(delay)
 			self:ScheduleMethod(27, "ToMC3")
 			self:ScheduleMethod(28, "ToMC2")
 			self:ScheduleMethod(29, "ToMC1")
+		end
+		if self.Options.EnableAutoWeaponUnequipOnMC then
+			self:ScheduleMethod(26.5, "unequip")
 		end
 	end
 	timerDominateMindCD:Start(-11.5-delay)  -- Custom adjustment to Heroic25
@@ -99,13 +104,14 @@ end
 
 function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
+	self:UnscheduleMethod("unequip")
 end
 
 do	-- add the additional Shield Bar
 	local last = 100
 	local function getShieldPercent()
 		local guid = UnitGUID("focus")
-		if mod:GetCIDFromGUID(guid) == 36855 then 
+		if mod:GetCIDFromGUID(guid) == 36855 then
 			last = math.floor(UnitMana("focus")/UnitManaMax("focus") * 100)
 			return last
 		end
@@ -135,6 +141,37 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
+	end
+end
+
+function mod:unequip()
+	-- print("DEBUG: unequip() called")
+	if mod:IsTank() or mod:IsHealer() then
+		return
+	end
+
+	if GetInventoryItemID("player", 16) then
+		PickupInventoryItem(16)
+		PutItemInBackpack()
+		PickupInventoryItem(17)
+		PutItemInBackpack()
+		PickupInventoryItem(18)
+		PutItemInBackpack()
+		ttsUnequipped:Play()
+	end
+end
+
+function mod:equip()
+	if not GetInventoryItemID("player", 16) and not UnitAura("player", "Dominate Mind") and HasFullControl() and not UnitIsDeadOrGhost("player") then
+		UseEquipmentSet("pve")
+		ttsEquipped:Play()
+	end
+end
+
+function mod:equip_fallback()
+	if not GetInventoryItemID("player", 16) then
+		self:equip()
+		self:ScheduleMethod(0.1, "equip_fallback")
 	end
 end
 
@@ -175,59 +212,65 @@ function mod:TrySetTarget()
 	end
 end
 
-do
-	local function showDominateMindWarning()
-		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
-		timerDominateMind:Start()
-		timerDominateMindCD:Start()
-		table.wipe(dominateMindTargets)
-		dominateMindIcon = 6
-		if mod.Options.SoundWarnCountingMC then
-			mod:ScheduleMethod(35, "ToMC5")
-			mod:ScheduleMethod(36, "ToMC4")
-			mod:ScheduleMethod(37, "ToMC3")
-			mod:ScheduleMethod(38, "ToMC2")
-			mod:ScheduleMethod(39, "ToMC1")
-		end
+function mod:showDominateMindWarning()
+	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
+	timerDominateMind:Start()
+	timerDominateMindCD:Start()
+	if self.Options.EnableAutoWeaponUnequipOnMC then
+		self:UnscheduleMethod("unequip")
+		self:ScheduleMethod(39, "unequip")
 	end
-	
-	function mod:SPELL_AURA_APPLIED(args)
-		if args:IsSpellID(71289) then
-			dominateMindTargets[#dominateMindTargets + 1] = args.destName
-			if self.Options.SetIconOnDominateMind then
-				self:SetIcon(args.destName, dominateMindIcon, 12)
-				dominateMindIcon = dominateMindIcon - 1
-			end
-			self:Unschedule(showDominateMindWarning)
-			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
-				showDominateMindWarning()
-			else
-				self:Schedule(0.9, showDominateMindWarning)
-			end
-		elseif args:IsSpellID(71001, 72108, 72109, 72110) then
-			if args:IsPlayer() then
-				specWarnDeathDecay:Show()
-			end
-			if (GetTime() - lastDD > 5) then
-				warnDeathDecay:Show()
-				lastDD = GetTime()
-			end
-		elseif args:IsSpellID(71237) and args:IsPlayer() then
-			specWarnCurseTorpor:Show()
-		elseif args:IsSpellID(70674) and not args:IsDestTypePlayer() and (UnitName("target") == L.Fanatic1 or UnitName("target") == L.Fanatic2 or UnitName("target") == L.Fanatic3) then
-			specWarnVampricMight:Show(args.destName)
-		elseif args:IsSpellID(71204) then
-			warnTouchInsignificance:Show(args.spellName, args.destName, args.amount or 1)
-			timerTouchInsignificance:Start(args.destName)
-			if args:IsPlayer() and (args.amount or 1) >= 3 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25")) then
-				specWarnTouchInsignificance:Show(args.amount)
-			elseif args:IsPlayer() and (args.amount or 1) >= 5 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
-				specWarnTouchInsignificance:Show(args.amount)
-			end
-		end
+	table.wipe(dominateMindTargets)
+	dominateMindIcon = 6
+	if mod.Options.SoundWarnCountingMC then
+		mod:ScheduleMethod(35, "ToMC5")
+		mod:ScheduleMethod(36, "ToMC4")
+		mod:ScheduleMethod(37, "ToMC3")
+		mod:ScheduleMethod(38, "ToMC2")
+		mod:ScheduleMethod(39, "ToMC1")
 	end
-	mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 end
+
+function mod:SPELL_AURA_APPLIED(args)
+	if args:IsSpellID(71289) then
+		dominateMindTargets[#dominateMindTargets + 1] = args.destName
+		if self.Options.SetIconOnDominateMind then
+			self:SetIcon(args.destName, dominateMindIcon, 12)
+			dominateMindIcon = dominateMindIcon - 1
+		end
+		self:Unschedule(showDominateMindWarning)
+		if self.Options.EnableAutoWeaponUnequipOnMC then
+			self:equip()
+		end
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
+			self:showDominateMindWarning()
+		else
+			self:Schedule(0.9, showDominateMindWarning)
+		end
+	elseif args:IsSpellID(71001, 72108, 72109, 72110) then
+		if args:IsPlayer() then
+			specWarnDeathDecay:Show()
+		end
+		if (GetTime() - lastDD > 5) then
+			warnDeathDecay:Show()
+			lastDD = GetTime()
+		end
+	elseif args:IsSpellID(71237) and args:IsPlayer() then
+		specWarnCurseTorpor:Show()
+	elseif args:IsSpellID(70674) and not args:IsDestTypePlayer() and (UnitName("target") == L.Fanatic1 or UnitName("target") == L.Fanatic2 or UnitName("target") == L.Fanatic3) then
+		specWarnVampricMight:Show(args.destName)
+	elseif args:IsSpellID(71204) then
+		warnTouchInsignificance:Show(args.spellName, args.destName, args.amount or 1)
+		timerTouchInsignificance:Start(args.destName)
+		if args:IsPlayer() and (args.amount or 1) >= 3 and (mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25")) then
+			specWarnTouchInsignificance:Show(args.amount)
+		elseif args:IsPlayer() and (args.amount or 1) >= 5 and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
+			specWarnTouchInsignificance:Show(args.amount)
+		end
+	end
+end
+
+mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(70842) then
@@ -238,6 +281,10 @@ function mod:SPELL_AURA_REMOVED(args)
 			warnAddsSoon:Cancel()
 			self:UnscheduleMethod("addsTimer")
 		end
+	elseif args:IsSpellID(71289) and self.Options.EnableAutoWeaponUnequipOnMC then
+		self:equip()
+		-- attempt to reequip every 0.1 sec in case you are still CCd
+		self:ScheduleMethod(0.1, "equip_fallback")
 	end
 end
 
