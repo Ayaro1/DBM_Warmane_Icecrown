@@ -119,8 +119,10 @@ Raids
  - The Lich King Normal
   - Added vocal anouncement when boss casts Infest
   - Added vocal anouncement when boss casts Soul Reaper
+  - Added vocal anouncement to warn just before Soul Reaper happens
   - Added vocal anouncement when you are affected by Necrotic Plague
   - Fixed the first phase 3 Defile timer
+  - Fixed first Necrotic Plague timer for phase 2
 
 
 - Ruby Sanctum
@@ -133,6 +135,7 @@ Raids
 
  - Halion
   - Added vocal anouncement when boss casts Meteor
+  - Attempt to fix double Twilight Cutter bar inside the Twilight Realm
 
 - Trial of the Crusader
 
@@ -154,6 +157,7 @@ Raids
    - Fixed timer for Icehowls first Massive Crash
    - Added a seperate timer for the second Massive Crash in case the original timer from DBM doesn't trigger
      It's possible to have two timers up for the second Massive Crash if and when the original timer triggers but that's better than having none
+   - Added combat start timer
 	 
  - Lord Jaraxxus
   - Fixed combat start timer for the first pull
@@ -161,6 +165,9 @@ Raids
   - Fixed timers for Nether Volcano's
   - Fixed timer for the first Nether Portal
   - Added a seperate timer with warning for the second Nether Portal since the original timer does not activate after the first portal spawns
+
+ - Twin Valkyrs
+  - Fixed combat start timer
 
  - Added RP timer for the Lich King event after Twin Valkyrs die
 
@@ -232,4 +239,3 @@ Raids
     This is gonna be a challenge and possibly impossible
     In order for DBM to pick up the AURA_APPLIED combatlog message, the aura has to be applied after the boss spawns
     Quite often the boss spawns with the aura already applied so there's nothing for DBM to pick up in the combatlog
-
