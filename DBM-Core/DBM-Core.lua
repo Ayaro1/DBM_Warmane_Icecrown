@@ -60,7 +60,7 @@ f:SetScript("OnUpdate", fCLFix)
 DBM = {
 	Revision = ("$Revision: 5075 $"):sub(12, -3),
 	Version = "5.07",
-	DisplayVersion = "5.07 DBM Warmane edit by Ayaro/Sariyo.", -- the string that is shown as version
+	DisplayVersion = "5.07 DBM Warmane by Ayaro/Sariyo.", -- the string that is shown as version
 	ReleaseRevision = 5075 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
@@ -2447,11 +2447,11 @@ function bossModPrototype:GetBossTarget(cid)
 		end
 	end
 
-			-- Warmane Edit
-			if self:GetUnitCreatureId("boss1") == cid 
-			or UnitName("boss1") == "General Vezax" then
-				return UnitName("boss1target"), "boss1target"
-			end
+-- Warmane Edit
+if self:GetUnitCreatureId("boss1") == cid
+	or UnitName("boss1") == "General Vezax" then
+		return UnitName("boss1target"), "boss1target"
+	end
 end
 
 function bossModPrototype:GetThreatTarget(cid)
@@ -3298,7 +3298,7 @@ do
 		end
 		return pformat(DBM_CORE_AUTO_TIMER_TEXTS[timerType], spellName)
 	end
-	
+
 	function bossModPrototype:CountdownSound5()
 		PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 	end
