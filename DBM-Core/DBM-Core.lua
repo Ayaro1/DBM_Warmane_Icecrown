@@ -2772,6 +2772,37 @@ do
 	end
 end
 
+-----------------------------
+--  TTS Sound File Object  --
+-----------------------------
+do
+	local soundFilePrototype = {}
+	local mt = { __index = soundFilePrototype }
+	function bossModPrototype:NewSoundFile(f, optionName, optionDefault)
+		local obj = setmetatable({ mod = self, file = f, option = optionName}, mt)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "misc")
+		end
+		return obj
+	end
+
+	function soundFilePrototype:Play()
+		if DBM.Options.TTSEnabled and (not self.option or self.mod.Options[self.option]) then
+			PlaySoundFile(self.file, "Master")
+		end
+	end
+
+	function soundFilePrototype:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundFilePrototype:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end
+end
+
 --------------------
 --  Sound Object  --
 --------------------
