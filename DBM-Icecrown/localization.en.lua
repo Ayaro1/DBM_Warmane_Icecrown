@@ -150,7 +150,7 @@ L:SetOptionLocalization{
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
 	RemoveDruidBuff				= "Remove Druid buff 24 seconds into the fight",
-	EnableAutoWeaponUnequipOnMC = "Automatically remove weapon when affected by Mind Control"
+	EnableAutoWeaponUnequipOnMC = "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'."
 }
 
 L:SetMiscLocalization{
