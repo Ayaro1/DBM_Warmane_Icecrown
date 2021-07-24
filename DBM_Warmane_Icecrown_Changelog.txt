@@ -121,7 +121,7 @@ Raids
   - Added vocal anouncement when boss casts Soul Reaper
   - Added vocal anouncement to warn just before Soul Reaper happens
   - Added vocal anouncement when you are affected by Necrotic Plague
-  - Fixed the first phase 3 Defile timer
+  - Fixed first Defile timer for phase 3 
   - Fixed first Necrotic Plague timer for phase 2
 
 
@@ -167,7 +167,7 @@ Raids
   - Added a seperate timer with warning for the second Nether Portal since the original timer does not activate after the first portal spawns
 
  - Twin Valkyrs
-  - Fixed combat start timer
+  - Added combat start timer
 
  - Added RP timer for the Lich King event after Twin Valkyrs die
 
