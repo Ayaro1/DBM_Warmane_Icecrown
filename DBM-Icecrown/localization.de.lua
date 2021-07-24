@@ -20,7 +20,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	SpecWarnTrap		= "Zeige Spezialwarnung für Fallenaktivierung",
+	SpecWarnTrap			= "Zeige Spezialwarnung für Fallenaktivierung",
 	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
 	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
 }
