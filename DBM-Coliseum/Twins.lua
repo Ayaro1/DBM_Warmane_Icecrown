@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4395 $"):sub(12, -3))
-mod:SetCreatureID(34497, 34496)  
+mod:SetCreatureID(34497, 34496)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_INTERRUPT"
+	"SPELL_INTERRUPT",
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 mod:SetBossHealthInfo(
@@ -22,7 +23,7 @@ mod:SetBossHealthInfo(
 
 local warnSpecial					= mod:NewAnnounce("WarnSpecialSpellSoon", 3)
 local warnTouchDebuff				= mod:NewAnnounce("WarningTouchDebuff", 2, 66823)
-local warnPoweroftheTwins			= mod:NewAnnounce("WarningPoweroftheTwins", 4)		
+local warnPoweroftheTwins			= mod:NewAnnounce("WarningPoweroftheTwins", 4)
 local specWarnSpecial				= mod:NewSpecialWarning("SpecWarnSpecial")
 local specWarnSwitch				= mod:NewSpecialWarning("SpecWarnSwitchTarget")
 local specWarnKickNow 				= mod:NewSpecialWarning("SpecWarnKickNow")
@@ -36,6 +37,7 @@ local timerHeal						= mod:NewCastTimer(15, 65875)
 local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
+local timerCombatStart				= mod:NewTimer(35)
 
 mod:AddBoolOption("SpecialWarnOnDebuff", false, "announce")
 mod:AddBoolOption("SetIconOnDebuffTarget", true)
@@ -71,7 +73,7 @@ function mod:SPELL_CAST_START(args)
 		timerHeal:Start()
 		self:SpecialAbility(true)
 		if self:GetUnitCreatureId("target") == 34497 then	-- if lightbane, then switch to darkbane
-			specWarnSwitch:Show()	
+			specWarnSwitch:Show()
 		end
 	elseif args:IsSpellID(65876, 67306, 67307, 67308) then		-- Light Pact
 		timerHeal:Start()
@@ -132,9 +134,9 @@ do
 	frame:SetScript("OnEvent", function(self, event, timestamp, subEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
 		if shieldedMob == destGUID then
 			local absorbed
-			if subEvent == "SWING_MISSED" then 
-				absorbed = select( 2, ... ) 
-			elseif subEvent == "RANGE_MISSED" or subEvent == "SPELL_MISSED" or subEvent == "SPELL_PERIODIC_MISSED" then 
+			if subEvent == "SWING_MISSED" then
+				absorbed = select( 2, ... )
+			elseif subEvent == "RANGE_MISSED" or subEvent == "SPELL_MISSED" or subEvent == "SPELL_PERIODIC_MISSED" then
 				absorbed = select( 5, ... )
 			end
 			if absorbed then
@@ -142,7 +144,7 @@ do
 			end
 		end
 	end)
-	
+
 	function showShieldHealthBar(self, mob, shieldName, absorb)
 		shieldedMob = mob
 		absorbRemaining = absorb
@@ -151,7 +153,7 @@ do
 		DBM.BossHealth:AddBoss(getShieldHP, shieldName)
 		self:Schedule(15, hideShieldHealthBar)
 	end
-	
+
 	function hideShieldHealthBar()
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 	end
@@ -186,7 +188,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		debuffTargets[#debuffTargets + 1] = args.destName
 		self:UnscheduleMethod("warnDebuff")
 		self:ScheduleMethod(0.75, "warnDebuff")
-	elseif args:IsSpellID(67246, 65879, 65916, 67244) or args:IsSpellID(67245, 67248, 67249, 67250) then	-- Power of the Twins 
+	elseif args:IsSpellID(67246, 65879, 65916, 67244) or args:IsSpellID(67245, 67248, 67249, 67250) then	-- Power of the Twins
 		self:Schedule(0.1, showPowerWarning, self, args:GetDestCreatureID())
 	elseif args:IsSpellID(65874, 67256, 67257, 67258) or args:IsSpellID(65858, 67259, 67260, 67261) then  -- Shield of Darkness/Lights
 		showShieldHealthBar(self, args.destGUID, args.spellName, shieldValues[args.spellId] or 0)
@@ -220,5 +222,11 @@ end
 function mod:SPELL_INTERRUPT(args)
 	if type(args.extraSpellId) == "number" and (args.extraSpellId == 65875 or args.extraSpellId == 67303 or args.extraSpellId == 67304 or args.extraSpellId == 67305 or args.extraSpellId == 65876 or args.extraSpellId == 67306 or args.extraSpellId == 67307 or args.extraSpellId == 67308) then
 		timerHeal:Cancel()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.CombatStart or msg:find(L.CombatStart) then
+		timerCombatStart:Start()
 	end
 end
