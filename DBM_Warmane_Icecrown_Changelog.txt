@@ -22,6 +22,7 @@ General Modifications
 - Added a LFG cooldown timer after successfully entering LFG - Made by Underlord from Sunwell
  - Temporarily disabled
 - Added vocal countdown to /pull for the final 5 seconds
+- Added the Spell Timer module but disabled by default
 
 
 Bosstimer Fixes
