@@ -52,7 +52,7 @@ local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, mod:IsTank(
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("EnableAutoWeaponUnequipOnMC", not mod:IsTank())
+mod:AddBoolOption("EnableAutoWeaponUnequipOnMC", true, not mod:IsTank())
 mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
@@ -138,14 +138,13 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
 	else
-		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:ScheduleMethod(45, "addsTimer")
-		timerAdds:Start(45)
+		warnAddsSoon:Schedule(40)	-- 5 secs prewarning --55
+		self:ScheduleMethod(45, "addsTimer") --60
+		timerAdds:Start(45) --60
 	end
 end
 
 function mod:unequip()
-	-- print("DEBUG: unequip() called")
 	if mod:IsTank() or mod:IsHealer() then
 		return
 	end
@@ -157,14 +156,14 @@ function mod:unequip()
 		PutItemInBackpack()
 		PickupInventoryItem(18)
 		PutItemInBackpack()
-		ttsUnequipped:Play()
+		--ttsUnequipped:Play()
 	end
 end
 
 function mod:equip()
 	if not GetInventoryItemID("player", 16) and not UnitAura("player", "Dominate Mind") and HasFullControl() and not UnitIsDeadOrGhost("player") then
 		UseEquipmentSet("pve")
-		ttsEquipped:Play()
+		--ttsEquipped:Play()
 	end
 end
 
