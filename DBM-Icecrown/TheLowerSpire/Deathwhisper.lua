@@ -156,14 +156,14 @@ function mod:unequip()
 		PutItemInBackpack()
 		PickupInventoryItem(18)
 		PutItemInBackpack()
-		--ttsUnequipped:Play()
+		PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\weaponsoff.mp3")
 	end
 end
 
 function mod:equip()
 	if not GetInventoryItemID("player", 16) and not UnitAura("player", "Dominate Mind") and HasFullControl() and not UnitIsDeadOrGhost("player") then
 		UseEquipmentSet("pve")
-		--ttsEquipped:Play()
+		PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\weaponson.mp3")
 	end
 end
 
