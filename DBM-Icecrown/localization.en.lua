@@ -139,18 +139,19 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnAddsSoon				= "Show pre-warning for adds spawning",
-	WarnReanimating				= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
-	TimerAdds					= "Show timer for new adds",
-	SpecWarnVengefulShade		= "Show special warning when you are attacked by Vengeful Shade",--creatureid 38222
-	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
-	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),	
-	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
-	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
-	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	RemoveDruidBuff				= "Remove Druid buff 24 seconds into the fight",
-	EnableAutoWeaponUnequipOnMC = "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'."
+	WarnAddsSoon						= "Show pre-warning for adds spawning",
+	WarnReanimating						= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
+	TimerAdds							= "Show timer for new adds",
+	SpecWarnVengefulShade				= "Show special warning when you are attacked by Vengeful Shade",--creatureid 38222
+	ShieldHealthFrame					= "Show boss health with a health bar for $spell:70842",
+	WarnTouchInsignificance				= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),	
+	SetIconOnDominateMind				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
+	SetIconOnDeformedFanatic			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
+	SetIconOnEmpoweredAdherent			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
+	SoundWarnCountingMC					= "Play a 5 second audio countdown for Mind Control",
+	RemoveDruidBuff						= "Remove Druid buff 24 seconds into the fight",
+	EnableAutoWeaponUnequipOnMC			= "On cast - Unequip/equip weapons if MC is cast on you.\nFor equipping to work, create an equipment set called 'pve'.\nUse this if you have low ms and stable connection.",
+	EnableAutoWeaponUnequipOnMCTimed	= "On timer - Unequip/equip weapons if MC is cast on you.\nFor equipping to work, create an equipment set called 'pve'.\n Use this if you have high ms or unstable connection."
 }
 
 L:SetMiscLocalization{
