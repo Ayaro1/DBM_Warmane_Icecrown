@@ -188,7 +188,7 @@ L:SetMiscLocalization({
 	Phase2					= "You will find only suffering within the realm of twilight! Enter if you dare!",
 	Phase3					= "I am the light and the darkness! Cower, mortals, before the herald of Deathwing!",
 	twilightcutter			= "Beware the shadow!", --"The orbiting spheres pulse with dark energy!". Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
-	--twilightcutter			= "The orbiting spheres pulse with dark energy!",
+	--twilightcutter			= "The orbiting spheres pulse with dark energy!", -- Original
 	YellCombustion			= "Combustion on me!",
 	WhisperCombustion		= "Combustion on you! Run to the wall!",
 	YellConsumption			= "Consumption on me!",
