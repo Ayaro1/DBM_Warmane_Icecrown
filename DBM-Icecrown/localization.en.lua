@@ -150,8 +150,8 @@ L:SetOptionLocalization{
 	SetIconOnEmpoweredAdherent			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC					= "Play a 5 second audio countdown for Mind Control",
 	RemoveDruidBuff						= "Remove Druid buff 24 seconds into the fight",
-	EnableAutoWeaponUnequipOnMC			= "On cast - Unequip/equip weapons if MC is cast on you.\nFor equipping to work, create an equipment set called 'pve'.\nUse this if you have low ms and stable connection.",
-	EnableAutoWeaponUnequipOnMCTimed	= "On timer - Unequip/equip weapons if MC is cast on you.\nFor equipping to work, create an equipment set called 'pve'.\n Use this if you have high ms or unstable connection."
+	EnableAutoWeaponUnequipOnMC			= "Unequip/equip weapons if MC is cast on you.\nFor equipping to work, create an equipment set called 'pve'.",
+	EnableAutoWeaponUnequipOnMCTimed	= "Timed version of Unequip/equip weapons.\n Use this if your ms is high or your connection is unstable."
 }
 
 L:SetMiscLocalization{
