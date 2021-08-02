@@ -248,6 +248,25 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+--[[
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+	if msg == L.twilightcutter or msg:find(L.twilightcutter) then
+	elseif msg == L.twilightcutter or msg:find(L.twilightcutter) then -- Edited (specific for Warmane since CHAT_MSG_RAID_BOSS_EMOTE fires twice: at 5s and at cutter)
+			specWarnTwilightCutter:Schedule(5)
+		if not self.Options.AnnounceAlternatePhase then
+			timerTwilightCutterCD:Cancel()
+			warningTwilightCutter:Show()
+			timerTwilightCutterCast:Start()
+			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
+			timerTwilightCutterCD:Schedule(15)
+		end
+		if mod:LatencyCheck() then
+			self:SendSync("TwilightCutter")
+		end
+	end
+end
+]]--
+
 function mod:OnSync(msg, target)
 	if msg == "TwilightCutter" then
 		if self.Options.AnnounceAlternatePhase then
