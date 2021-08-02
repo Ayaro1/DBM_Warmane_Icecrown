@@ -53,6 +53,7 @@ local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, mod:IsTank(
 local berserkTimer					= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("EnableAutoWeaponUnequipOnMC", true, not mod:IsTank())
+mod:AddBoolOption("EnableAutoWeaponUnequipOnMCTimed", false)
 mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
@@ -88,7 +89,7 @@ function mod:OnCombatStart(delay)
 			self:ScheduleMethod(28, "ToMC2")
 			self:ScheduleMethod(29, "ToMC1")
 		end
-		if self.Options.EnableAutoWeaponUnequipOnMC then
+		if self.Options.EnableAutoWeaponUnequipOnMCTimed then
 			self:ScheduleMethod(26.5, "unequip")
 		end
 	end
@@ -215,7 +216,7 @@ function mod:showDominateMindWarning()
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
 	timerDominateMindCD:Start()
-	if self.Options.EnableAutoWeaponUnequipOnMC then
+	if self.Options.EnableAutoWeaponUnequipOnMCTimed then
 		self:UnscheduleMethod("unequip")
 		self:ScheduleMethod(39, "unequip")
 	end
@@ -238,10 +239,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			dominateMindIcon = dominateMindIcon - 1
 		end
 		self:Unschedule(showDominateMindWarning)
-		if self.Options.EnableAutoWeaponUnequipOnMC then
-			self:equip()
-		end
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
+			if self.Options.EnableAutoWeaponUnequipOnMCTimed then
+				self:equip()
+			end
 			self:showDominateMindWarning()
 		else
 			self:Schedule(0.9, showDominateMindWarning)
@@ -280,7 +281,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			warnAddsSoon:Cancel()
 			self:UnscheduleMethod("addsTimer")
 		end
-	elseif args:IsSpellID(71289) and self.Options.EnableAutoWeaponUnequipOnMC then
+	elseif args:IsSpellID(71289) and self.Options.EnableAutoWeaponUnequipOnMCTimed or self.Options.EnableAutoWeaponUnequipOnMC then
 		self:equip()
 		-- attempt to reequip every 0.1 sec in case you are still CCd
 		self:ScheduleMethod(0.1, "equip_fallback")
