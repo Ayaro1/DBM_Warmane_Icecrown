@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 5075 $"):sub(12, -3),
-	Version = "5.07",
-	DisplayVersion = "5.07 DBM Warmane by Ayaro/Sariyo.", -- the string that is shown as version
-	ReleaseRevision = 5075 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5077 $"):sub(12, -3),
+	Version = "5.077",
+	DisplayVersion = "5.077 DBM Warmane by Ayaro/Sariyo.", -- the string that is shown as version
+	ReleaseRevision = 5077 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
