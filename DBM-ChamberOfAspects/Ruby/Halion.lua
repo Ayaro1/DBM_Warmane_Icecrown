@@ -270,7 +270,7 @@ end
 function mod:OnSync(msg, target)
 	if msg == "TwilightCutter" then
 		--if self.Options.AnnounceAlternatePhase then
-		if self.Options.AnnounceAlternatePhase and self.AntiSpam(7, msg) then -- Edited to work around double cutter emote
+		if self.Options.AnnounceAlternatePhase and self:AntiSpam(7, msg) then -- Edited to work around double cutter emote
 			timerTwilightCutterCD:Cancel()
 			warningTwilightCutter:Show()
 			timerTwilightCutterCast:Start()
