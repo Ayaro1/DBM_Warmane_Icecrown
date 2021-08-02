@@ -287,6 +287,12 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
+function mod:SPELL_CAST_SUCCESS(args)
+	if self.Options.EnableAutoWeaponUnequipOnMC and args:IsSpellID(71289) and args:IsPlayer() then
+		self:unequip()
+	end
+end
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(71420, 72007, 72501, 72502) then
 		warnFrostbolt:Show()
