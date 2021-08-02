@@ -281,7 +281,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			warnAddsSoon:Cancel()
 			self:UnscheduleMethod("addsTimer")
 		end
-	elseif args:IsSpellID(71289) and self.Options.EnableAutoWeaponUnequipOnMCTimed or self.Options.EnableAutoWeaponUnequipOnMC then
+	elseif args:IsSpellID(71289) and self.Options.EnableAutoWeaponUnequipOnMC or self.Options.EnableAutoWeaponUnequipOnMCTimed then
 		self:equip()
 		-- attempt to reequip every 0.1 sec in case you are still CCd
 		self:ScheduleMethod(0.1, "equip_fallback")
