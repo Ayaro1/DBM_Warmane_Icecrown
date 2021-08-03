@@ -53,6 +53,7 @@ local berserkTimer				= mod:NewBerserkTimer(600)
 local berserkTimerLordaeron		= mod:NewTimer(390, "Berserk Timer Lordaeron", nil, false)
 
 local soundBlisteringCold = mod:NewSound(70123)
+
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
 mod:AddBoolOption("ClearIconsOnAirphase", true)
