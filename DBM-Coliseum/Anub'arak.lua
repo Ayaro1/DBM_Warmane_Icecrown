@@ -269,8 +269,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnSubmergeSoon:Cancel()
 		timerEmerge:Stop()
 		timerSubmerge:Stop()
-		timerSubmergeTwo:stop()
-		timerEmergeTwo:stop()
+		timerSubmergeTwo:Stop()
+		timerEmergeTwo:Stop()
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
