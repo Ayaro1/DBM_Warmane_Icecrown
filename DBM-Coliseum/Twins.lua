@@ -43,7 +43,6 @@ mod:AddBoolOption("SpecialWarnOnDebuff", false, "announce")
 mod:AddBoolOption("SetIconOnDebuffTarget", true)
 mod:AddBoolOption("HealthFrame", true)
 
-
 local debuffTargets					= {}
 local debuffIcon					= 8
 
