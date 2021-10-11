@@ -75,7 +75,7 @@ function mod:OnCombatStart(delay)
 		DBM.RangeCheck:Show(8)
 	end
 	if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
-		timerNextInciteTerror:Start(124-delay)
+		timerNextInciteTerror:Start(127-delay) --124
 	else
 		timerNextInciteTerror:Start(127-delay)
 	end
