@@ -2775,7 +2775,7 @@ end
 -----------------------------
 --  TTS Sound File Object  --
 -----------------------------
-do
+--[[do
 	local soundFilePrototype = {}
 	local mt = { __index = soundFilePrototype }
 	function bossModPrototype:NewSoundFile(f, optionName, optionDefault)
@@ -2801,7 +2801,7 @@ do
 	function soundFilePrototype:Cancel(...)
 		return unschedule(self.Play, self.mod, self, ...)
 	end
-end
+end]]--
 
 --------------------
 --  Sound Object  --
