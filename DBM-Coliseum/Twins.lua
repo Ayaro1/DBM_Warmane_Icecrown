@@ -37,7 +37,7 @@ local timerHeal						= mod:NewCastTimer(15, 65875)
 local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
-local timerCombatStart				= mod:NewTimer(35)
+--local timerCombatStart				= mod:NewTimer(35)
 
 mod:AddBoolOption("SpecialWarnOnDebuff", false, "announce")
 mod:AddBoolOption("SetIconOnDebuffTarget", true)
@@ -224,8 +224,10 @@ function mod:SPELL_INTERRUPT(args)
 	end
 end
 
+--[[
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.CombatStart or msg:find(L.CombatStart) then
 		timerCombatStart:Start()
 	end
 end
+]]--
