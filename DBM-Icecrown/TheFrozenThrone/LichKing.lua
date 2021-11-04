@@ -90,8 +90,8 @@ local berserkTimerLordaeron		= mod:NewTimer(735, "Berserk Timer Lordaeron", nil,
 
 local soundDefile				= mod:NewSound(72762)
 
---local ttsSoulreaperSoon 		= mod:NewSoundFile("Interface\\AddOns\\DBM-Core\\sounds\\soulreapersoon.mp3", "TTS Soulreaper Soon", mod:IsTank() or mod:IsHealer())
---local ttsSoulreaperSoonOffset	= 2.5
+local ttsSoulreaperSoon 		= mod:NewSoundFile("Interface\\AddOns\\DBM-Core\\sounds\\soulreapersoon.mp3", "TTS Soulreaper Soon", mod:IsTank() or mod:IsHealer())
+local ttsSoulreaperSoonOffset	= 2.5
 
 mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank() or mod:IsHealer(), "announce")
 mod:AddBoolOption("DefileIcon")
@@ -124,11 +124,9 @@ function mod:OnCombatStart(delay)
 	table.wipe(warnedValkyrGUIDs)
 end
 
---[[
 function mod:OnCombatEnd()
 	ttsSoulreaperSoon:Cancel()
 end
-]]--
 
 function mod:DefileTarget()
 	local target = self:GetBossTarget(36597)
@@ -339,7 +337,7 @@ function mod:SPELL_CAST_START(args)
 		timerHarvestSoulCD:Cancel()
 		berserkTimer:Cancel()
 		warnDefileSoon:Cancel()
-		--ttsSoulreaperSoon:Cancel()
+		ttsSoulreaperSoon:Cancel()
 	end
 end
 
@@ -361,7 +359,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specwarnSoulreaper:Show(args.destName)
 		timerSoulreaper:Start(args.destName)
 		timerSoulreaperCD:Start()
-		--ttsSoulreaperSoon:Schedule(30.5-ttsSoulreaperSoonOffset)
+		ttsSoulreaperSoon:Schedule(30.5-ttsSoulreaperSoonOffset)
 		PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\soulreaper.mp3")
 		if args:IsPlayer() then
 			specWarnSoulreaper:Show()
@@ -398,7 +396,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerSoulreaperCD:Cancel()
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
-		--ttsSoulreaperSoon:Cancel()
+		ttsSoulreaperSoon:Cancel()
 	end
 end
 
@@ -551,10 +549,12 @@ function mod:NextPhase()
 	if self.vb.phase == 1 then
 		berserkTimer:Start()
 		berserkTimerLordaeron:Start()
+		timerSoulreaperCD:Start(38)
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)
 		timerNecroticPlagueCD:Start(31)
+		ttsSoulreaperSoon:Schedule(38-ttsSoulreaperSoonOffset)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerTrapCD:Start()
 		end
@@ -564,16 +564,16 @@ function mod:NextPhase()
 		timerDefileCD:Start(38)
 		timerInfestCD:Start(14)
 		warnDefileSoon:Schedule(33)
-		--ttsSoulreaperSoon:Cancel()
-		--ttsSoulreaperSoon:Schedule(32-ttsSoulreaperSoonOffset)
+		ttsSoulreaperSoon:Cancel()
+		ttsSoulreaperSoon:Schedule(32-ttsSoulreaperSoonOffset)
 	elseif self.vb.phase == 3 then
 		timerVileSpirit:Start(20)
 		timerSoulreaperCD:Start(40)
 		timerDefileCD:Start(33)
 		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(33)
-		--ttsSoulreaperSoon:Cancel()
-		--ttsSoulreaperSoon:Schedule(40-ttsSoulreaperSoonOffset)
+		ttsSoulreaperSoon:Cancel()
+		ttsSoulreaperSoon:Schedule(40-ttsSoulreaperSoonOffset)
 	end
 end
 
